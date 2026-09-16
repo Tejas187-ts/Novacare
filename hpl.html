@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NovaCare Medical Center — Advanced Hospital Website Demo</title>
+<meta name="description" content="UI/UX demo of an advanced hospital digital platform. All names, data and contact details are fictional.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230d9488'/%3E%3Cpath d='M12 6v12M6 12h12' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f9fb; --surface:#ffffff; --ink:#0c2434; --muted:#527084; --line:#e0edf2;
+  --teal:#0d9488; --teal-d:#0f766e; --teal-l:#ecfbf8; --blue:#0284c7; --blue-d:#0369a1;
+  --grad:linear-gradient(135deg,#0ea5a4 0%,#0284c7 100%);
+  --danger:#e11d48; --danger-grad:linear-gradient(135deg,#f43f5e,#be123c);
+  --amber:#f59e0b; --violet:#8b5cf6;
+  --shadow-sm:0 4px 14px rgba(12,36,52,.06);
+  --shadow-md:0 14px 34px rgba(12,36,52,.10);
+  --shadow-lg:0 24px 60px rgba(12,36,52,.16);
+  --r-sm:12px; --r-md:16px; --r-lg:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:104px}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
+img,svg{display:block}
+a{color:inherit}
+button{font:inherit}
+::selection{background:#bfe8e4;color:#083a35}
+:focus-visible{outline:3px solid rgba(13,148,136,.45);outline-offset:2px;border-radius:6px}
+.container{width:min(1200px,92%);margin:0 auto}
+section{padding:86px 0}
+.skip-link{position:absolute;left:-999px;top:0;background:#0b2233;color:#fff;padding:10px 16px;z-index:999;border-radius:0 0 10px 0}
+.skip-link:focus{left:0}
+
+/* ---------- Typography & section heads ---------- */
+h1,h2,h3{line-height:1.15;letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,3.4vw,2.45rem);font-weight:800}
+h3{font-size:1.12rem;font-weight:800}
+.section-head{text-align:center;max-width:660px;margin:0 auto 52px}
+.section-head h2{margin:14px 0 12px}
+.section-head p{color:var(--muted)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 15px;border-radius:999px;background:#e3f5f2;color:var(--teal-d);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 24px;border-radius:13px;font-weight:700;font-size:.94rem;border:1.5px solid transparent;cursor:pointer;text-decoration:none;transition:transform .22s,box-shadow .22s,background .22s,border-color .22s;white-space:nowrap}
+.btn .ic{width:19px;height:19px}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 22px rgba(2,132,199,.30)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 15px 30px rgba(2,132,199,.38)}
+.btn-outline{border-color:#c4e2e8;background:#fff;color:var(--teal-d)}
+.btn-outline:hover{border-color:var(--teal);background:var(--teal-l);transform:translateY(-2px)}
+.btn-white{background:#fff;color:var(--teal-d);box-shadow:0 8px 18px rgba(0,0,0,.18)}
+.btn-white:hover{transform:translateY(-2px)}
+.btn-danger{background:var(--danger-grad);color:#fff;box-shadow:0 10px 22px rgba(225,29,72,.32)}
+.btn-danger:hover{transform:translateY(-2px)}
+.btn-ghost{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.10);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+.btn-sm{padding:9px 15px;font-size:.82rem;border-radius:11px}
+.btn-block{width:100%}
+.icon-btn{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;border:1.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;transition:.22s}
+.icon-btn:hover{border-color:var(--teal);color:var(--teal-d);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- Header ---------- */
+.demo-ribbon{background:linear-gradient(90deg,#0f766e,#0369a1);color:#dcfffa;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:7px 14px}
+.site-header{position:sticky;top:0;z-index:300;transition:.3s}
+.site-header.scrolled{background:rgba(255,255,255,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 8px 28px rgba(12,36,52,.09)}
+.header-inner{display:flex;align-items:center;gap:16px;padding:15px 0}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:800;font-size:1.16rem;color:var(--ink)}
+.logo-mark{width:42px;height:42px;border-radius:13px;background:var(--grad);display:grid;place-items:center;color:#fff;box-shadow:0 7px 16px rgba(2,132,199,.32);flex-shrink:0}
+.logo-text small{display:block;font-size:.6rem;font-weight:700;color:var(--muted);letter-spacing:.18em}
+.main-nav{display:flex;gap:2px;margin-left:auto}
+.main-nav a{padding:9px 12px;border-radius:10px;text-decoration:none;font-weight:600;font-size:.88rem;color:#24465a;transition:.2s}
+.main-nav a:hover,.main-nav a.active{background:var(--teal-l);color:var(--teal-d)}
+.header-actions{display:flex;gap:10px;align-items:center}
+.hamburger{display:none}
+.mobile-panel{position:fixed;top:0;right:0;height:100dvh;width:min(340px,88vw);background:#fff;z-index:420;transform:translateX(105%);transition:transform .35s cubic-bezier(.2,.8,.3,1);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;padding:22px;overflow-y:auto}
+.mobile-panel.open{transform:none}
+.mobile-panel a{text-decoration:none;padding:13px 14px;border-radius:12px;font-weight:700;color:var(--ink)}
+.mobile-panel a:hover{background:var(--teal-l);color:var(--teal-d)}
+.scrim{position:fixed;inset:0;background:rgba(8,25,38,.45);backdrop-filter:blur(3px);z-index:410;opacity:0;pointer-events:none;transition:.3s}
+.scrim.show{opacity:1;pointer-events:auto}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:76px 0 110px;background:linear-gradient(180deg,#e9f6f9 0%,#f4fafc 55%,var(--bg) 100%);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(640px 420px at 88% 8%,rgba(14,165,164,.14),transparent 60%),
+  radial-gradient(560px 420px at 4% 92%,rgba(2,132,199,.12),transparent 60%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center;position:relative}
+.hero h1{font-size:clamp(2.2rem,4.8vw,3.5rem);font-weight:800;margin:20px 0 16px}
+.hero p.lead{color:var(--muted);font-size:1.06rem;max-width:520px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 6px}
+.hero-stats{display:flex;gap:38px;flex-wrap:wrap;margin-top:36px}
+.stat-num{font-size:1.55rem;font-weight:800;letter-spacing:-.02em}
+.stat-num em{font-style:normal;color:var(--teal)}
+.stat-label{font-size:.78rem;color:var(--muted);font-weight:600}
+.hero-visual{position:relative;min-height:440px}
+.hero-art{position:absolute;inset:0;border-radius:32px;background:
+  radial-gradient(420px 300px at 30% 20%,rgba(255,255,255,.55),transparent 60%),
+  linear-gradient(150deg,#bfe6ea 0%,#8fd0d8 45%,#6cb8d6 100%);
+  box-shadow:var(--shadow-lg);overflow:hidden}
+.hero-art svg{width:100%;height:100%}
+.float-card{position:absolute;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.8);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow-md);animation:float 6s ease-in-out infinite;z-index:2}
+.fc-vitals{top:8%;left:-6%;width:190px}
+.fc-appt{bottom:10%;right:-4%;width:215px;animation-delay:1.4s}
+.fc-rating{top:44%;right:-7%;animation-delay:.7s;display:flex;align-items:center;gap:9px}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+.fc-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.fc-big{font-size:1.25rem;font-weight:800}
+.fc-sub{font-size:.76rem;color:var(--muted)}
+.fc-row{display:flex;align-items:center;gap:11px}
+.fc-av{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:.8rem}
+.pulse-dot{width:9px;height:9px;border-radius:50%;background:#10b981;position:relative}
+.pulse-dot::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid #10b981;animation:ring 1.8s ease-out infinite}
+@keyframes ring{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.4);opacity:0}}
+.spark{width:100%;height:34px;margin-top:6px}
+
+/* ---------- Emergency ---------- */
+.emergency{margin-top:-58px;position:relative;z-index:5}
+.em-card{background:var(--danger-grad);color:#fff;border-radius:var(--r-lg);padding:26px 30px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;box-shadow:0 20px 46px rgba(190,18,60,.35);position:relative;overflow:hidden}
+.em-card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px 200px at 90% 0%,rgba(255,255,255,.16),transparent 60%)}
+.em-icon{width:58px;height:58px;border-radius:17px;background:rgba(255,255,255,.16);display:grid;place-items:center;flex-shrink:0;animation:emPulse 2s ease-in-out infinite}
+@keyframes emPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.45)}50%{box-shadow:0 0 0 12px rgba(255,255,255,0)}}
+.em-info{flex:1;min-width:220px;position:relative}
+.em-tag{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.em-info strong{display:block;font-size:1.28rem;font-weight:800;margin:2px 0}
+.em-info span{font-size:.85rem;opacity:.9}
+.em-phone{font-size:1.5rem;font-weight:800;letter-spacing:.02em;display:flex;align-items:center;gap:9px}
+.em-actions{display:flex;gap:11px;flex-wrap:wrap;position:relative}
+
+/* ---------- Quick services ---------- */
+.qs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.qs-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;cursor:pointer;transition:transform .28s,box-shadow .28s,border-color .28s;position:relative;overflow:hidden;text-align:left}
+.qs-card::after{content:"";position:absolute;inset:auto -30% -55% auto;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(13,148,136,.09),transparent 70%);transition:.3s}
+.qs-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:#b9e4de}
+.qs-card:hover::after{transform:scale(1.5)}
+.qs-icon{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;color:#fff;margin-bottom:15px;box-shadow:0 8px 16px rgba(12,36,52,.14)}
+.qs-card h3{font-size:1rem;margin-bottom:5px}
+.qs-card p{font-size:.82rem;color:var(--muted)}
+.g1{background:linear-gradient(135deg,#0ea5a4,#0d9488)}.g2{background:linear-gradient(135deg,#0ea5e9,#0284c7)}.g3{background:linear-gradient(135deg,#8b5cf6,#6d28d9)}
+.g4{background:linear-gradient(135deg,#f59e0b,#d97706)}.g5{background:linear-gradient(135deg,#10b981,#059669)}.g6{background:linear-gradient(135deg,#ec4899,#db2777)}
+.g7{background:linear-gradient(135deg,#f43f5e,#e11d48)}.g8{background:linear-gradient(135deg,#14b8a6,#0891b2)}
+</style>
+<style>
+/* ---------- Doctor finder ---------- */
+.filter-bar{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;box-shadow:var(--shadow-sm);margin-bottom:30px}
+.field label{display:block;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:11px;font:inherit;font-size:.9rem;background:#fbfefe;color:var(--ink);transition:.2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,148,136,.13);background:#fff}
+.filter-bar .btn{align-self:end}
+.docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.doc-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;transition:transform .28s,box-shadow .28s,border-color .28s}
+.doc-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:#b9e4de}
+.doc-top{display:flex;gap:15px;align-items:center}
+.avatar{width:66px;height:66px;border-radius:19px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.15rem;flex-shrink:0;letter-spacing:.02em}
+.doc-name{font-weight:800;font-size:1.02rem}
+.doc-spec{color:var(--teal-d);font-weight:700;font-size:.82rem}
+.doc-exp{font-size:.76rem;color:var(--muted);font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:5px;background:#eef6f9;color:#33586b;font-size:.7rem;font-weight:700;padding:4px 11px;border-radius:999px}
+.doc-meta{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 10px}
+.doc-times{display:flex;align-items:center;gap:7px;font-size:.8rem;color:var(--muted);margin-bottom:15px}
+.doc-times .ic{width:15px;height:15px;color:var(--teal)}
+.doc-actions{display:flex;gap:10px}
+.doc-empty{grid-column:1/-1;text-align:center;padding:52px 20px;background:#fff;border:1.5px dashed #c4dde5;border-radius:var(--r-lg);color:var(--muted)}
+.doc-empty .ic{width:44px;height:44px;margin:0 auto 12px;color:#9db9c4}
+
+/* ---------- Departments ---------- */
+#departments{background:linear-gradient(180deg,var(--bg),#eef6f9 50%,var(--bg))}
+.dept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(208px,1fr));gap:18px}
+.dept-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;transition:.28s}
+.dept-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:#b9e4de}
+.dept-icon{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;color:#fff;margin-bottom:14px}
+.dept-card h3{font-size:.98rem;margin-bottom:6px}
+.dept-card p{font-size:.8rem;color:var(--muted);margin-bottom:14px;min-height:58px}
+.link-btn{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--teal-d);font-weight:700;font-size:.82rem;cursor:pointer;padding:0}
+.link-btn .ic{width:16px;height:16px;transition:.2s}
+.link-btn:hover .ic{transform:translateX(4px)}
+
+/* ---------- Services ---------- */
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.svc-item{display:flex;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:20px;transition:.25s}
+.svc-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm);border-color:#b9e4de}
+.svc-icon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;color:#fff;flex-shrink:0}
+.svc-item h3{font-size:.95rem;margin-bottom:4px}
+.svc-item p{font-size:.8rem;color:var(--muted)}
+
+/* ---------- Facilities ---------- */
+#facilities{background:linear-gradient(180deg,var(--bg),#eef6f9 50%,var(--bg))}
+.fac-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.fac-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;transition:.28s}
+.fac-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.fac-art{height:150px;display:grid;place-items:center;color:rgba(255,255,255,.95);position:relative}
+.fac-art .ic{width:54px;height:54px;stroke-width:1.6;filter:drop-shadow(0 6px 12px rgba(0,0,0,.2))}
+.fac-art::after{content:"";position:absolute;inset:0;background:radial-gradient(220px 140px at 80% 10%,rgba(255,255,255,.22),transparent 65%)}
+.fac-body{padding:18px 20px 20px}
+.fac-body h3{font-size:.96rem;margin-bottom:4px}
+.fac-body p{font-size:.79rem;color:var(--muted)}
+.demo-tag{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.22);backdrop-filter:blur(6px);color:#fff;font-size:.62rem;font-weight:800;letter-spacing:.1em;padding:4px 9px;border-radius:999px;text-transform:uppercase}
+
+/* ---------- Packages ---------- */
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:20px}
+.pkg-card{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r-lg);padding:26px 22px;position:relative;transition:.28s;display:flex;flex-direction:column}
+.pkg-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.pkg-card.popular{border-color:var(--teal);box-shadow:0 16px 36px rgba(13,148,136,.16)}
+.pop-ribbon{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--grad);color:#fff;font-size:.64rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:999px;white-space:nowrap}
+.pkg-icon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;color:#fff;margin-bottom:14px}
+.pkg-card h3{font-size:.96rem}
+.pkg-desc{font-size:.77rem;color:var(--muted);margin:5px 0 14px}
+.pkg-price{font-size:2rem;font-weight:800;letter-spacing:-.03em}
+.pkg-price span{font-size:.8rem;font-weight:600;color:var(--muted)}
+.pkg-feats{list-style:none;margin:14px 0 18px;flex:1}
+.pkg-feats li{display:flex;gap:8px;align-items:flex-start;font-size:.79rem;color:#33586b;padding:4px 0}
+.pkg-feats .ic{width:15px;height:15px;color:var(--teal);flex-shrink:0;margin-top:3px}
+
+/* ---------- Portal preview ---------- */
+.portal-shell{background:var(--surface);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow-lg);overflow:hidden;position:relative}
+.portal-shell::after{content:"DEMO";position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(3rem,10vw,7rem);font-weight:800;letter-spacing:.3em;color:rgba(12,36,52,.045);pointer-events:none;transform:rotate(-18deg)}
+.portal-top{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--line);background:#f7fcfd}
+.dot{width:11px;height:11px;border-radius:50%}
+.portal-top span{font-size:.78rem;font-weight:700;color:var(--muted);margin-left:6px}
+.demo-pill{margin-left:auto;background:#fff3e0;color:#b45309;font-size:.64rem;font-weight:800;letter-spacing:.1em;padding:5px 12px;border-radius:999px;text-transform:uppercase;border:1px solid #f5d9a8}
+.portal-grid{display:grid;grid-template-columns:220px 1fr;min-height:420px}
+.portal-side{border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:5px}
+.pnav{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:11px;font-size:.84rem;font-weight:600;color:#41617a;text-decoration:none;transition:.2s}
+.pnav .ic{width:17px;height:17px}
+.pnav:hover,.pnav.on{background:var(--teal-l);color:var(--teal-d)}
+.portal-main{padding:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:15px;align-content:start}
+.mini{background:#fbfefe;border:1px solid var(--line);border-radius:16px;padding:17px;transition:.25s}
+.mini:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm)}
+.mini-head{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.mini-head .ic{width:19px;height:19px;color:var(--teal)}
+.mini-head span{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.mini h4{font-size:.9rem;margin-bottom:3px}
+.mini p{font-size:.76rem;color:var(--muted)}
+.ring-wrap{display:flex;align-items:center;gap:13px}
+.ring{transform:rotate(-90deg)}
+.ring-bg{stroke:#e2eef3}
+.ring-fg{stroke:url(#ringGrad);stroke-linecap:round}
+.ring-txt{font-size:1.25rem;font-weight:800}
+.chip.ok{background:#e7f8ef;color:#047857}.chip.warn{background:#fff4e0;color:#b45309}.chip.info{background:#e8f3fe;color:#0369a1}
+
+/* ---------- Lab & reports ---------- */
+#lab{background:linear-gradient(180deg,var(--bg),#eef6f9 50%,var(--bg))}
+.lab-wrap{display:grid;grid-template-columns:.9fr 1.4fr;gap:34px;align-items:center}
+.report-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md);overflow:hidden}
+.report-head{display:flex;align-items:center;gap:11px;padding:16px 20px;border-bottom:1px solid var(--line);background:#f7fcfd}
+.report-head .ic{width:20px;height:20px;color:var(--teal)}
+.report-head strong{font-size:.9rem}
+.report-head span{margin-left:auto;font-size:.66rem;font-weight:800;letter-spacing:.09em;color:var(--muted);text-transform:uppercase}
+table.rpt{width:100%;border-collapse:collapse;font-size:.82rem}
+table.rpt th{text-align:left;padding:11px 20px;font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:1px solid var(--line);background:#fbfefe}
+table.rpt td{padding:12px 20px;border-bottom:1px solid #eef5f8;color:#33586b}
+table.rpt tr:last-child td{border-bottom:none}
+table.rpt tr:hover td{background:#f6fbfc}
+.lab-points{list-style:none;margin-top:20px}
+.lab-points li{display:flex;gap:12px;padding:10px 0;font-size:.9rem;color:#33586b}
+.lab-points .ic{width:20px;height:20px;color:var(--teal);flex-shrink:0;margin-top:2px}
+
+/* ---------- Teleconsult ---------- */
+.tele-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+.video-mock{aspect-ratio:16/10;border-radius:24px;background:linear-gradient(150deg,#0c2b3a,#0f4c5c 60%,#0d9488);position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.video-mock::before{content:"";position:absolute;inset:0;background:radial-gradient(420px 260px at 70% 15%,rgba(255,255,255,.10),transparent 60%)}
+.vm-avatar{position:absolute;top:50%;left:50%;transform:translate(-50%,-56%);width:104px;height:104px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.9rem;border:4px solid rgba(255,255,255,.35);box-shadow:0 0 0 10px rgba(255,255,255,.08)}
+.vm-name{position:absolute;top:calc(50% + 34px);left:50%;transform:translateX(-50%);color:#eafffc;font-weight:700;font-size:.92rem;text-align:center}
+.vm-name small{display:block;font-weight:500;opacity:.75;font-size:.72rem}
+.vm-chip{position:absolute;top:16px;left:16px;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:#fff;font-size:.68rem;font-weight:700;padding:6px 12px;border-radius:999px}
+.rec{width:8px;height:8px;border-radius:50%;background:#f43f5e;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.2}}
+.vm-controls{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:11px}
+.vm-btn{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);color:#fff;border:none;cursor:pointer;transition:.2s}
+.vm-btn:hover{background:rgba(255,255,255,.3)}
+.vm-btn.end{background:var(--danger-grad)}
+.vm-btn .ic{width:19px;height:19px}
+.tele-points{list-style:none;margin:20px 0 26px}
+.tele-points li{display:flex;gap:12px;padding:9px 0;font-size:.92rem;color:#33586b}
+.tele-points .ic{width:20px;height:20px;color:var(--teal);flex-shrink:0;margin-top:2px}
+
+/* ---------- Assistant ---------- */
+#assistant{background:linear-gradient(135deg,#0b2233,#0e3a4a 55%,#0d5c58);position:relative;overflow:hidden}
+#assistant::before{content:"";position:absolute;inset:0;background:radial-gradient(560px 380px at 85% 15%,rgba(14,165,164,.22),transparent 60%)}
+#assistant .section-head h2,#assistant .section-head p{color:#eafaf7}
+#assistant .section-head p{color:#9fc9c4}
+#assistant .eyebrow{background:rgba(255,255,255,.1);color:#7de3d6}
+.assistant-shell{max-width:700px;margin:0 auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.35);position:relative}
+.asst-head{display:flex;align-items:center;gap:13px;padding:17px 20px;background:var(--grad);color:#fff}
+.asst-av{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;flex-shrink:0}
+.asst-head strong{display:block;font-size:.95rem}
+.asst-head small{font-size:.72rem;opacity:.85}
+.asst-online{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:.68rem;font-weight:700;background:rgba(255,255,255,.15);padding:5px 11px;border-radius:999px}
+.chat-area{height:350px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;background:#f7fbfc}
+.msg{max-width:86%;padding:11px 15px;font-size:.86rem;border-radius:15px;line-height:1.5;animation:msgIn .3s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+.msg-bot{background:#eef5f7;color:#234a5e;border-radius:15px 15px 15px 4px;align-self:flex-start}
+.msg-user{background:var(--grad);color:#fff;border-radius:15px 15px 4px 15px;align-self:flex-end}
+.msg-typing{display:flex;gap:5px;padding:14px 16px}
+.msg-typing i{width:7px;height:7px;border-radius:50%;background:#9db9c4;animation:tp 1s infinite}
+.msg-typing i:nth-child(2){animation-delay:.15s}.msg-typing i:nth-child(3){animation-delay:.3s}
+@keyframes tp{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-5px);opacity:1}}
+.asst-chips{display:flex;gap:8px;flex-wrap:wrap;padding:12px 20px 4px;background:#fff}
+.asst-chips button{border:1.5px solid var(--line);background:#fbfefe;border-radius:999px;padding:7px 14px;font-size:.76rem;font-weight:700;color:#33586b;cursor:pointer;transition:.2s}
+.asst-chips button:hover{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.asst-input{display:flex;gap:10px;padding:14px 20px 12px;background:#fff}
+.asst-input input{flex:1;padding:12px 15px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:.88rem}
+.asst-input input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,148,136,.13)}
+.asst-disclaimer{padding:0 20px 16px;background:#fff;font-size:.7rem;color:var(--muted);display:flex;gap:7px;align-items:flex-start}
+.asst-disclaimer .ic{width:14px;height:14px;flex-shrink:0;margin-top:2px;color:var(--amber)}
+
+/* ---------- Testimonials ---------- */
+.tmn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tmn-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px;position:relative;transition:.28s}
+.tmn-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.tmn-card::before{content:"\201C";position:absolute;top:6px;right:20px;font-size:4.6rem;font-weight:800;color:#e4f2f5;line-height:1;font-family:Georgia,serif}
+.stars{display:flex;gap:3px;color:#f59e0b;margin-bottom:13px}
+.stars .ic{width:16px;height:16px;fill:currentColor;stroke:none}
+.tmn-card p{font-size:.88rem;color:#33586b;margin-bottom:18px}
+.tmn-who{display:flex;align-items:center;gap:12px}
+.tmn-av{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:.85rem}
+.tmn-who strong{display:block;font-size:.9rem}
+.tmn-who span{font-size:.72rem;color:var(--muted)}
+.demo-note{text-align:center;font-size:.72rem;color:var(--muted);margin-top:18px;font-weight:600}
+
+/* ---------- Trust / accreditations ---------- */
+#trust{background:linear-gradient(180deg,var(--bg),#eaf4f7 50%,var(--bg))}
+.trust-badges{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:44px}
+.trust-badge{display:flex;align-items:center;gap:11px;background:var(--surface);border:1.5px dashed #b9d6de;border-radius:15px;padding:13px 19px;font-size:.8rem;font-weight:800;color:#41617a;letter-spacing:.04em}
+.trust-badge .ic{width:22px;height:22px;color:var(--teal)}
+.trust-badge small{display:block;font-weight:600;color:var(--muted);font-size:.66rem;letter-spacing:.02em}
+.trust-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:900px;margin:0 auto}
+.tstat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;text-align:center;transition:.25s}
+.tstat:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
+.tstat b{display:block;font-size:1.7rem;font-weight:800;letter-spacing:-.02em}
+.tstat span{font-size:.76rem;color:var(--muted);font-weight:600}
+
+/* ---------- Articles ---------- */
+.art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.art-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;transition:.28s;display:flex;flex-direction:column}
+.art-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.art-art{height:140px;display:grid;place-items:center;color:rgba(255,255,255,.95);position:relative}
+.art-art .ic{width:46px;height:46px;stroke-width:1.6;filter:drop-shadow(0 6px 12px rgba(0,0,0,.2))}
+.art-body{padding:19px 20px 21px;display:flex;flex-direction:column;flex:1}
+.art-cat{align-self:flex-start;font-size:.64rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-d);background:var(--teal-l);padding:4px 11px;border-radius:999px;margin-bottom:11px}
+.art-body h3{font-size:.96rem;margin-bottom:7px;flex:1}
+.art-body p{font-size:.79rem;color:var(--muted);margin-bottom:15px}
+.art-meta{font-size:.7rem;color:var(--muted);font-weight:600;margin-bottom:13px}
+
+/* ---------- Location ---------- */
+#location{background:linear-gradient(180deg,var(--bg),#eaf4f7 50%,var(--bg))}
+.loc-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:30px;align-items:stretch}
+.loc-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;box-shadow:var(--shadow-sm)}
+.loc-row{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid #eef5f8}
+.loc-row:last-child{border-bottom:none}
+.loc-row .ic{width:20px;height:20px;color:var(--teal);flex-shrink:0;margin-top:3px}
+.loc-row strong{display:block;font-size:.88rem}
+.loc-row span{font-size:.8rem;color:var(--muted)}
+.map-ph{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);min-height:380px;box-shadow:var(--shadow-sm);background:#dcebee}
+.map-ph svg{width:100%;height:100%;position:absolute;inset:0}
+.map-chip{position:absolute;bottom:14px;left:14px;background:rgba(12,36,52,.78);backdrop-filter:blur(6px);color:#fff;font-size:.68rem;font-weight:700;padding:7px 13px;border-radius:999px;display:flex;gap:7px;align-items:center}
+.map-pin{position:absolute;top:38%;left:52%;transform:translate(-50%,-100%);animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translate(-50%,-100%)}50%{transform:translate(-50%,-112%)}}
+
+/* ---------- Contact ---------- */
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px}
+.c-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;box-shadow:var(--shadow-sm)}
+.c-card + .c-card{margin-top:16px}
+.c-row{display:flex;align-items:center;gap:14px;padding:11px 0}
+.c-row .c-ic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:#fff;flex-shrink:0}
+.c-row strong{display:block;font-size:.9rem}
+.c-row span{font-size:.79rem;color:var(--muted);word-break:break-all}
+.form-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px;box-shadow:var(--shadow-md)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.form-grid .full{grid-column:1/-1}
+.demo-hint{display:flex;gap:8px;align-items:flex-start;background:#fff8ec;border:1px solid #f5ddb0;border-radius:12px;padding:11px 14px;font-size:.74rem;color:#8a5a12;margin-bottom:18px}
+.demo-hint .ic{width:15px;height:15px;flex-shrink:0;margin-top:2px;color:var(--amber)}
+
+/* ---------- FAQ ---------- */
+.faq-list{max-width:780px;margin:0 auto}
+.faq-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);margin-bottom:11px;overflow:hidden;transition:.25s}
+.faq-item.open{border-color:#b9e4de;box-shadow:var(--shadow-sm)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;background:none;border:none;cursor:pointer;padding:17px 20px;font-weight:700;font-size:.93rem;text-align:left;color:var(--ink)}
+.faq-q .ic{width:18px;height:18px;color:var(--teal);flex-shrink:0;transition:.3s}
+.faq-item.open .faq-q .ic{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;padding:0 20px;color:var(--muted);font-size:.87rem}
+.faq-item.open .faq-a{max-height:240px;padding-bottom:18px}
+
+/* ---------- Footer ---------- */
+.site-footer{background:#0b2233;color:#a8c4d2;margin-top:40px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:34px;padding:64px 0 44px}
+.foot-brand .logo{color:#fff;margin-bottom:14px}
+.foot-brand p{font-size:.84rem;margin-bottom:18px}
+.socials{display:flex;gap:10px}
+.soc{width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.08);display:grid;place-items:center;color:#cfe6ef;transition:.2s;cursor:pointer}
+.soc:hover{background:var(--teal);color:#fff;transform:translateY(-3px)}
+.soc .ic{width:17px;height:17px}
+.site-footer h4{color:#fff;font-size:.86rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.foot-links{list-style:none}
+.foot-links li{margin-bottom:9px}
+.foot-links a{text-decoration:none;font-size:.84rem;transition:.2s;cursor:pointer}
+.foot-links a:hover{color:#5eead4}
+.foot-em{background:rgba(244,63,94,.12);border:1px solid rgba(244,63,94,.35);border-radius:14px;padding:15px 17px;margin-top:6px}
+.foot-em strong{color:#fda4af;display:flex;align-items:center;gap:8px;font-size:.82rem}
+.foot-em a{color:#fff;font-weight:800;font-size:1.05rem;text-decoration:none}
+.foot-em small{display:block;font-size:.7rem;opacity:.7;margin-top:4px}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.09);padding:20px 0;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;font-size:.76rem}
+.foot-bottom nav{display:flex;gap:18px;flex-wrap:wrap}
+.foot-bottom a{text-decoration:none;cursor:pointer}
+.foot-bottom a:hover{color:#5eead4}
+
+/* ---------- Modals ---------- */
+.modal-overlay{position:fixed;inset:0;background:rgba(8,25,38,.55);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:grid;place-items:center;z-index:500;opacity:0;pointer-events:none;transition:opacity .25s;padding:20px}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-card{background:#fff;border-radius:24px;width:100%;max-width:560px;max-height:90dvh;overflow-y:auto;padding:30px;transform:translateY(22px) scale(.97);transition:transform .3s cubic-bezier(.2,.8,.3,1);position:relative}
+.modal-overlay.open .modal-card{transform:none}
+.modal-card.wide{max-width:660px}
+.modal-x{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:11px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--muted);transition:.2s;z-index:2}
+.modal-x:hover{color:var(--danger);border-color:#f3c2cd}
+.modal-card h3{font-size:1.25rem;margin-bottom:4px}
+.modal-sub{font-size:.83rem;color:var(--muted);margin-bottom:20px}
+
+/* appointment wizard */
+.steps{display:flex;gap:0;margin:6px 0 24px}
+.step{flex:1;text-align:center;position:relative;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:26px}
+.step::before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:22px;height:22px;border-radius:50%;background:#e2eef3;border:2px solid #e2eef3;transition:.3s;z-index:1}
+.step::after{content:"";position:absolute;top:18px;left:-50%;width:100%;height:2px;background:#e2eef3}
+.step:first-child::after{display:none}
+.step.done::before{background:var(--teal);border-color:var(--teal);box-shadow:inset 0 0 0 5px #fff}
+.step.done::after{background:var(--teal)}
+.step.now{color:var(--teal-d)}
+.step.now::before{background:#fff;border-color:var(--teal);box-shadow:0 0 0 4px rgba(13,148,136,.18)}
+.step-panel{display:none;animation:fadeUp .3s ease}
+.step-panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+.opt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.opt-grid.two{grid-template-columns:repeat(2,1fr)}
+.opt-chip{border:1.5px solid var(--line);border-radius:12px;padding:12px 8px;cursor:pointer;background:#fff;text-align:center;font-weight:700;font-size:.82rem;color:#33586b;transition:.18s}
+.opt-chip small{display:block;font-weight:600;font-size:.68rem;color:var(--muted);margin-top:2px}
+.opt-chip:hover{border-color:var(--teal)}
+.opt-chip.sel{border-color:var(--teal);background:var(--teal-l);color:var(--teal-d);box-shadow:0 0 0 3px rgba(13,148,136,.13)}
+.opt-chip.off{opacity:.38;cursor:not-allowed;text-decoration:line-through}
+.wiz-nav{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
+.wiz-err{color:var(--danger);font-size:.76rem;font-weight:700;min-height:18px;margin-top:10px;text-align:center}
+.confirm-box{text-align:center;padding:12px 0}
+.confirm-ic{width:76px;height:76px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;margin:0 auto 18px;animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+.confirm-ic .ic{width:36px;height:36px}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.confirm-box h4{font-size:1.15rem;margin-bottom:5px}
+.confirm-box > p{font-size:.82rem;color:var(--muted);margin-bottom:18px}
+.csum{text-align:left;background:#f7fbfc;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px}
+.csum div{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:.84rem}
+.csum span{color:var(--muted)}
+.csum b{text-align:right}
+.demo-strip{display:flex;gap:8px;align-items:center;justify-content:center;background:#fff8ec;border:1px solid #f5ddb0;color:#8a5a12;font-size:.72rem;font-weight:600;border-radius:11px;padding:9px 13px;margin-bottom:16px}
+.demo-strip .ic{width:14px;height:14px;flex-shrink:0;color:var(--amber)}
+
+/* doctor profile modal */
+.prof-top{display:flex;gap:16px;align-items:center;margin-bottom:16px}
+.prof-av{width:74px;height:74px;border-radius:20px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.4rem;flex-shrink:0}
+.prof-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.prof-fact{background:#f7fbfc;border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.prof-fact span{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);display:block}
+.prof-fact b{font-size:.86rem}
+.prof-bio{font-size:.84rem;color:var(--muted);background:#f7fbfc;border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:18px}
+
+/* search overlay */
+.search-overlay{position:fixed;inset:0;z-index:600;background:rgba(240,248,250,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:.25s;overflow-y:auto}
+.search-overlay.open{opacity:1;pointer-events:auto}
+.search-inner{width:min(760px,92%);margin:9vh auto 40px;position:relative}
+.search-bar{display:flex;align-items:center;gap:13px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 20px;box-shadow:var(--shadow-lg)}
+.search-bar .ic{width:22px;height:22px;color:var(--teal);flex-shrink:0}
+.search-bar input{flex:1;border:none;outline:none;font:inherit;font-size:1.06rem;background:none;color:var(--ink)}
+.search-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:12px}
+.search-results{margin-top:22px;display:flex;flex-direction:column;gap:18px}
+.sr-group h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:8px}
+.sr-item{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin-bottom:8px;cursor:pointer;transition:.2s}
+.sr-item:hover{border-color:var(--teal);transform:translateX(4px);box-shadow:var(--shadow-sm)}
+.sr-ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:#fff;flex-shrink:0}
+.sr-ic .ic{width:18px;height:18px}
+.sr-item strong{display:block;font-size:.88rem}
+.sr-item span{font-size:.74rem;color:var(--muted)}
+.sr-type{margin-left:auto;font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-d);background:var(--teal-l);padding:4px 9px;border-radius:999px;flex-shrink:0}
+.sr-none{text-align:center;padding:56px 20px;color:var(--muted)}
+.sr-none .ic{width:52px;height:52px;margin:0 auto 14px;color:#a9c4ce}
+.sr-none h4{color:var(--ink);font-size:1.05rem;margin-bottom:6px}
+
+/* toasts */
+.toast-stack{position:fixed;bottom:24px;right:24px;z-index:700;display:flex;flex-direction:column;gap:10px;max-width:min(360px,90vw)}
+.toast{display:flex;gap:11px;align-items:flex-start;background:#0b2233;color:#fff;padding:14px 17px;border-radius:15px;box-shadow:var(--shadow-lg);font-size:.82rem;animation:toastIn .35s cubic-bezier(.2,.9,.3,1.2);border-left:4px solid var(--teal)}
+.toast.info{border-left-color:var(--blue)}
+.toast.warn{border-left-color:var(--amber)}
+.toast .ic{width:17px;height:17px;flex-shrink:0;margin-top:2px;color:#5eead4}
+.toast.info .ic{color:#7dd3fc}.toast.warn .ic{color:#fcd34d}
+@keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1}}
+.toast.out{animation:toastOut .3s forwards}
+@keyframes toastOut{to{opacity:0;transform:translateX(40px)}}
+
+/* floating utilities */
+.to-top{position:fixed;bottom:26px;left:26px;width:48px;height:48px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;border:none;cursor:pointer;box-shadow:var(--shadow-md);opacity:0;pointer-events:none;transition:.3s;z-index:380}
+.to-top.show{opacity:1;pointer-events:auto}
+.to-top:hover{transform:translateY(-4px)}
+.sticky-book{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:none;z-index:390;box-shadow:0 16px 36px rgba(2,132,199,.4)}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1080px){
+  .main-nav{display:none}
+  .hamburger{display:grid}
+  .header-actions .btn{display:none}
+  .hero-grid{grid-template-columns:1fr;gap:60px}
+  .hero-visual{min-height:400px;max-width:560px;margin:0 auto;width:100%}
+  .docs-grid{grid-template-columns:repeat(2,1fr)}
+  .filter-bar{grid-template-columns:1fr 1fr}
+  .filter-bar .btn{grid-column:1/-1}
+  .fac-grid,.art-grid,.tmn-grid{grid-template-columns:repeat(2,1fr)}
+  .pkg-grid{grid-template-columns:repeat(2,1fr)}
+  .portal-grid{grid-template-columns:1fr}
+  .portal-side{flex-direction:row;overflow-x:auto;border-right:none;border-bottom:1px solid var(--line)}
+  .portal-main{grid-template-columns:repeat(2,1fr)}
+  .lab-wrap,.tele-grid,.loc-grid,.contact-grid{grid-template-columns:1fr}
+  .trust-stats{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .fc-vitals{left:2%}.fc-appt{right:2%}.fc-rating{right:2%}
+}
+@media(max-width:720px){
+  section{padding:62px 0}
+  .qs-grid{grid-template-columns:repeat(2,1fr)}
+  .svc-grid{grid-template-columns:1fr}
+  .docs-grid{grid-template-columns:1fr}
+  .fac-grid,.art-grid,.tmn-grid{grid-template-columns:1fr}
+  .pkg-grid{grid-template-columns:1fr}
+  .portal-main{grid-template-columns:1fr}
+  .filter-bar{grid-template-columns:1fr}
+  .em-card{flex-direction:column;align-items:flex-start}
+  .em-phone{font-size:1.25rem}
+  .hero-stats{gap:22px}
+  .form-grid{grid-template-columns:1fr}
+  .opt-grid{grid-template-columns:repeat(2,1fr)}
+  .steps span.lbl{display:none}
+  .foot-grid{grid-template-columns:1fr;gap:26px;padding:48px 0 32px}
+  .sticky-book{display:inline-flex}
+  .to-top{bottom:82px}
+  .modal-card{padding:22px 18px}
+  .toast-stack{bottom:82px}
+}
+</style>
+<base target="_blank">
+</head>
+<body>
+<a class="skip-link" href="#home">Skip to content</a>
+
+<!-- ===== SVG ICON SPRITE ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M12 8.5v6M9 11.5h6"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.3-9-8c-1.5-2.8.5-6 3.7-6 2 0 3.4 1.1 4.3 2.4L12 10l1-1.6C14 7.1 15.4 6 17.4 6 20.6 6 22.6 9.2 21 12c-2 3.7-9 8-9 8z"/><path d="M7.5 12h2.4l1.3-2.6 1.9 4 1.2-1.4h2.2"/></symbol>
+<symbol id="i-brain" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.5 10.2a2.2 2.2 0 1 1 2.3-2.2M15 8.4a2.2 2.2 0 1 1 2 2.4M8.3 14.6a2.2 2.2 0 1 0 2.3 2M14.6 16a2.2 2.2 0 1 0 2.1-2.2M12 4.2v2.2M12 17.6v2.2"/></symbol>
+<symbol id="i-bone" viewBox="0 0 24 24"><path d="M7.5 8.5L16 16.5"/><circle cx="6" cy="7" r="2.4"/><circle cx="9" cy="10" r="2.4"/><circle cx="15" cy="14" r="2.4"/><circle cx="18" cy="17" r="2.4"/></symbol>
+<symbol id="i-baby" viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c0-3.6 3-6 7-6s7 2.4 7 6"/><path d="M10.6 7.3h.01M13.4 7.3h.01"/></symbol>
+<symbol id="i-skin" viewBox="0 0 24 24"><path d="M12 3.5c3 3 6 4.2 6 8.5a6 6 0 0 1-12 0c0-4.3 3-5.5 6-8.5z"/><path d="M9.5 12.5l1.6 1.6 3.2-3.4"/></symbol>
+<symbol id="i-stetho" viewBox="0 0 24 24"><path d="M7 3H5v3.5a5 5 0 0 0 10 0V3h-2"/><path d="M10 11.8V14a5 5 0 0 0 10 0v-1.5"/><circle cx="20" cy="10.7" r="1.8"/></symbol>
+<symbol id="i-ribbon" viewBox="0 0 24 24"><path d="M12 3.5c-2.1 2-4.1 3.4-4.1 6.7 0 2.4 1.9 3.9 4.1 3.9s4.1-1.5 4.1-3.9c0-3.3-2-4.7-4.1-6.7z"/><path d="M12 14.1L8.3 20.5M12 14.1l3.7 6.4"/></symbol>
+<symbol id="i-venus" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 17.5h6"/></symbol>
+<symbol id="i-ear" viewBox="0 0 24 24"><path d="M6 10a6 6 0 1 1 12 0c0 2.8-1.8 3.8-2.8 5.4-.9 1.4-.5 2.8-2 3.8"/><path d="M9.6 10a2.4 2.4 0 0 1 4.8 0c0 1.4-1 2-1.4 3"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 6.2 12 6.2 21.5 12 21.5 12 18 17.8 12 17.8 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.4"/></symbol>
+<symbol id="i-pill" viewBox="0 0 24 24"><path d="M10.2 4.2a4.9 4.9 0 0 1 7 7l-6 6a4.9 4.9 0 0 1-7-7z"/><path d="M7.2 12.8l6-6"/></symbol>
+<symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 3v5.2L5 17a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 17l-5-8.8V3"/><path d="M8.2 3h7.6M7.6 14h8.8"/></symbol>
+<symbol id="i-xray" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8a2.4 2.4 0 0 1 2.4 2.4c0 1.5-1 2-1 3.4h-2.8c0-1.4-1-1.9-1-3.4A2.4 2.4 0 0 1 12 8z"/><path d="M10.2 16.6h3.6"/></symbol>
+<symbol id="i-amb" viewBox="0 0 24 24"><path d="M3 16.5V9.5A2 2 0 0 1 5 7.5h7l4 4.2h3a1 1 0 0 1 1 1v3.8"/><circle cx="7.6" cy="17.4" r="1.7"/><circle cx="16.4" cy="17.4" r="1.7"/><path d="M3 16.5h2.9m3.4 0h5.4m3.4 0H21M13 7.5v4h4"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.2-4.2"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c0-3.4 3.4-5.5 7.5-5.5s7.5 2.1 7.5 5.5"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19.5c0-3 2.5-4.8 5.5-4.8s5.5 1.8 5.5 4.8"/><path d="M15.5 5.6a3.2 3.2 0 0 1 0 5.8M17.5 14.9c2 .7 3.3 2.2 3.3 4.3"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h3.6l2 4.8-2.3 1.4a12 12 0 0 0 5.5 5.5l1.4-2.3L20 15.6V19a2 2 0 0 1-2 2A15.5 15.5 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7.2l8.5 5.8 8.5-5.8"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.5s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10.3" r="2.4"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.4l2.7 5.6 6 .8-4.4 4.2 1.1 6-5.4-2.9-5.4 2.9 1.1-6L3.3 9.8l6-.8z"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h14M13.5 6.5l6 5.5-6 5.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-wheel" viewBox="0 0 24 24"><circle cx="10" cy="16" r="3.8"/><circle cx="18" cy="17" r="2"/><path d="M10 16l3.2-6.2H17M13.2 9.8L12.2 6H9.4"/></symbol>
+<symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18h18M3 21v-3M21 21v-3"/><path d="M3 12V6"/><circle cx="7" cy="13.5" r="1.3"/></symbol>
+<symbol id="i-cut" viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.6"/><circle cx="7" cy="17" r="2.6"/><path d="M9 8.6L20 19M9 15.4L20 5"/></symbol>
+<symbol id="i-cafe" viewBox="0 0 24 24"><path d="M5 9.5h11V15a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/><path d="M16 10.5h1.6a2.4 2.4 0 0 1 0 4.8H16M8 5.5c0-1 .9-1.1.9-2.2M12 5.5c0-1 .9-1.1.9-2.2"/></symbol>
+<symbol id="i-sofa" viewBox="0 0 24 24"><path d="M5 11.5V8.8A1.8 1.8 0 0 1 6.8 7h10.4A1.8 1.8 0 0 1 19 8.8v2.7"/><path d="M3.2 13.6a1.9 1.9 0 0 1 3.8 0v1h10v-1a1.9 1.9 0 0 1 3.8 0v2.6a1.9 1.9 0 0 1-1.9 1.9H5.1a1.9 1.9 0 0 1-1.9-1.9z"/><path d="M6 18.5V20M18 18.5V20"/></symbol>
+<symbol id="i-park" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9.2 16.5v-9H13a2.4 2.4 0 0 1 0 4.8H9.2"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3.5h6.5L18.5 8.5V20.5h-11.5z"/><path d="M13.5 3.5V8.5H18.5M10 12.5h5M10 16.5h5"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6.5 9.5a5.5 5.5 0 1 1 11 0c0 3.6 1.4 4.8 1.4 4.8H5.1s1.4-1.2 1.4-4.8z"/><path d="M10.2 18.7a1.9 1.9 0 0 0 3.6 0"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M20.5 4.5L3.5 11l7 2.6M20.5 4.5L16.4 20l-5.9-6.4M20.5 4.5L10.5 13.6"/></symbol>
+<symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="7" width="12.5" height="10" rx="2.2"/><path d="M15.5 10.6L21 7.4v9.2l-5.5-3.2"/></symbol>
+<symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.5l1.8 4.6 4.7 1.4-4.7 1.4L12 15.5l-1.8-4.6-4.7-1.4 4.7-1.4z"/><path d="M18.6 15.6l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7z"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M12 3l8 4.4v9.2L12 21l-8-4.4V7.4z"/><path d="M12 12l8-4.6M12 12v9M12 12L4 7.4"/></symbol>
+<symbol id="i-portal" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="12" cy="10.5" r="2.3"/><path d="M7.5 18c.5-2.3 2.4-3.6 4.5-3.6s4 1.3 4.5 3.6"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 11v5M12 7.8h.01"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M12 4c-4.6 0-8 3-8 6.8 0 2.4 1.5 4.5 3.8 5.7-.1 1.2-.7 2.4-1.8 3.5 1.9-.1 3.5-.8 4.6-1.6.4.1.9.1 1.4.1 4.6 0 8-3 8-6.7S16.6 4 12 4z"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M3.8 12h16.4M12 3.8c-4.6 5-4.6 11.4 0 16.4 4.6-5 4.6-11.4 0-16.4z"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 3.5V8h-4.5"/></symbol>
+<symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 3.8a8.2 8.2 0 0 0-7.1 12.3L4 20.2l4.2-1.1A8.2 8.2 0 1 0 12 3.8z"/><path d="M9.3 8.9c-.3 0-.6.1-.8.5-.9 1.4-.4 3.4 1.2 4.9 1.5 1.4 3.5 1.9 4.8 1.1.4-.2.6-.5.5-.9l-.4-1.3c-.1-.3-.5-.5-.8-.3l-1.2.5c-.9-.4-1.7-1.1-2.1-2l.6-1.2c.2-.3.1-.7-.2-.9z"/></symbol>
+</defs>
+</svg>
+
+<!-- ===== DEMO RIBBON + HEADER ===== -->
+<div class="demo-ribbon">UI/UX Portfolio Demo — All names, data &amp; contact details on this page are fictional</div>
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a class="logo" href="#home" aria-label="NovaCare Medical Center home">
+      <span class="logo-mark"><svg class="ic" aria-hidden="true"><use href="#i-logo"/></svg></span>
+      <span class="logo-text">NovaCare<small>MEDICAL CENTER</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="#home" class="active">Home</a>
+      <a href="#doctors">Doctors</a>
+      <a href="#departments">Departments</a>
+      <a href="#services">Services</a>
+      <a href="#facilities">Facilities</a>
+      <a href="#packages">Health Packages</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="Search the site"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg></button>
+      <button class="btn btn-primary" data-open-appointment><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg>Book Appointment</button>
+      <button class="icon-btn hamburger" id="hamburger" aria-label="Open menu"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile panel -->
+<div class="scrim" id="scrim"></div>
+<aside class="mobile-panel" id="mobilePanel" aria-label="Mobile menu">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+    <span class="logo-mark" style="width:38px;height:38px"><svg class="ic" aria-hidden="true"><use href="#i-logo"/></svg></span>
+    <strong>NovaCare<span style="display:block;font-size:.6rem;color:var(--muted);letter-spacing:.16em;font-weight:700">MEDICAL CENTER · DEMO</span></strong>
+    <button class="icon-btn" id="closePanel" aria-label="Close menu" style="margin-left:auto;width:38px;height:38px"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </div>
+  <a href="#home">Home</a><a href="#doctors">Doctors</a><a href="#departments">Departments</a><a href="#services">Services</a><a href="#facilities">Facilities</a><a href="#packages">Health Packages</a><a href="#about">About</a><a href="#contact">Contact</a>
+  <button class="btn btn-primary btn-block" data-open-appointment style="margin-top:16px"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg>Book Appointment</button>
+  <button class="btn btn-outline btn-block" id="mSearchBtn" style="margin-top:10px"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>Search</button>
+</aside>
+
+<main id="home">
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow"><svg class="ic" style="width:14px;height:14px" aria-hidden="true"><use href="#i-spark"/></svg>Next-Generation Hospital Platform</span>
+      <h1>Advanced Care.<br>Trusted People.<br><span class="grad-text">Better Health.</span></h1>
+      <p class="lead">NovaCare Medical Center brings together world-class specialists, smart diagnostics and seamless digital services — appointments, teleconsultation, reports and more — in one beautifully simple experience.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" data-open-appointment><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg>Book an Appointment</button>
+        <a class="btn btn-outline" href="#doctors"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Find a Doctor</a>
+        <a class="btn btn-outline" href="#departments"><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg>Explore Departments</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num"><span data-count="25">0</span><em>+</em></div><div class="stat-label">Years of Care (demo)</div></div>
+        <div><div class="stat-num"><span data-count="120">0</span><em>+</em></div><div class="stat-label">Expert Doctors (demo)</div></div>
+        <div><div class="stat-num"><span data-count="40">0</span><em>+</em></div><div class="stat-label">Specialties (demo)</div></div>
+        <div><div class="stat-num"><span data-count="98">0</span><em>%</em></div><div class="stat-label">Patient Satisfaction (demo)</div></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hero-art" role="img" aria-label="Illustration of a fictional NovaCare doctor">
+        <svg viewBox="0 0 520 440" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+          <circle cx="400" cy="80" r="120" fill="rgba(255,255,255,.16)"/>
+          <circle cx="90" cy="300" r="90" fill="rgba(255,255,255,.12)"/>
+          <ellipse cx="260" cy="470" rx="210" ry="190" fill="#ffffff"/>
+          <path d="M150 470c0-78 48-128 110-128s110 50 110 128z" fill="#e6f2f5"/>
+          <path d="M205 470l55-96 55 96" fill="none" stroke="#0d9488" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="260" cy="250" r="62" fill="#f4c9a8"/>
+          <path d="M198 246c-6-52 26-84 62-84s68 32 62 84c-2-8-10-30-14-34-2 10-8 16-16 18 4-14-2-30-8-34-6 10-18 14-30 14-22 0-40 12-44 36-4-2-8-2-12 0z" fill="#274156"/>
+          <circle cx="238" cy="252" r="5.5" fill="#1f2937"/><circle cx="282" cy="252" r="5.5" fill="#1f2937"/>
+          <path d="M244 282c8 8 24 8 32 0" fill="none" stroke="#b4623a" stroke-width="5" stroke-linecap="round"/>
+          <path d="M150 470c0-78 48-128 110-128s110 50 110 128" fill="none" stroke="#d3e6ec" stroke-width="4"/>
+          <path d="M310 380c22-8 44-30 48-56" fill="none" stroke="#0d9488" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="362" cy="318" r="14" fill="#0d9488"/>
+          <rect x="70" y="70" width="86" height="86" rx="22" fill="rgba(255,255,255,.35)"/>
+          <path d="M113 96v34M96 113h34" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="430" cy="330" r="42" fill="rgba(255,255,255,.3)"/>
+          <path d="M414 330h10l5-11 8 20 5-9h10" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="float-card fc-vitals">
+        <div class="fc-title">Live Vitals (Demo)</div>
+        <div class="fc-big">72 <span style="font-size:.7rem;color:var(--muted)">bpm</span></div>
+        <svg class="spark" viewBox="0 0 160 34" aria-hidden="true"><polyline points="0,20 18,20 26,8 36,28 46,14 60,20 78,20 88,6 98,28 110,16 128,20 160,20" fill="none" stroke="#0d9488" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="float-card fc-appt">
+        <div class="fc-row">
+          <span class="fc-av" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">ER</span>
+          <div><div style="font-weight:800;font-size:.82rem">Dr. Elena Voss</div><div class="fc-sub">Neurology · Today 4:30 PM</div></div>
+        </div>
+      </div>
+      <div class="float-card fc-rating">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <div><div style="font-weight:800;font-size:.82rem">Doctors Online</div><div class="fc-sub">24/7 Emergency Ready</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EMERGENCY ===== -->
+<section class="emergency" aria-label="Emergency information">
+  <div class="container">
+    <div class="em-card reveal">
+      <div class="em-icon"><svg class="ic" style="width:28px;height:28px" aria-hidden="true"><use href="#i-amb"/></svg></div>
+      <div class="em-info">
+        <span class="em-tag">Emergency Care · 24/7</span>
+        <strong>Emergency &amp; Ambulance Service — Always Open</strong>
+        <span>Trauma care, cardiac emergencies and critical transport, staffed round the clock (fictional demo service).</span>
+      </div>
+      <div>
+        <div style="font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.85">Emergency Contact (Demo)</div>
+        <div class="em-phone"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>+1 (555) 010-2048</div>
+      </div>
+      <div class="em-actions">
+        <a class="btn btn-white" href="tel:+15550102048"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Call Emergency</a>
+        <button class="btn btn-ghost" data-toast="Ambulance request received (demo only — no real dispatch was made)."><svg class="ic" aria-hidden="true"><use href="#i-amb"/></svg>Request Ambulance</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUICK SERVICES ===== -->
+<section id="quick" aria-label="Quick services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Everything, One Tap Away</span>
+      <h2>Quick Services</h2>
+      <p>The most-used hospital services, redesigned for speed. This is an interactive demo — every action shows a simulated response.</p>
+    </div>
+    <div class="qs-grid">
+      <button class="qs-card reveal" data-open-appointment><span class="qs-icon g1"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg></span><h3>Book Appointment</h3><p>Pick a department, doctor &amp; slot in under a minute.</p></button>
+      <a class="qs-card reveal" href="#doctors"><span class="qs-icon g2"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg></span><h3>Find a Doctor</h3><p>Search 120+ fictional specialists by name or field.</p></a>
+      <button class="qs-card reveal" data-toast="Demo lab booking opened — in production this would show available lab tests."><span class="qs-icon g3"><svg class="ic" aria-hidden="true"><use href="#i-flask"/></svg></span><h3>Lab Tests</h3><p>Book bloodwork &amp; pathology with home collection.</p></button>
+      <button class="qs-card reveal" data-toast="Demo imaging scheduler — CT, MRI &amp; X-ray slots would appear here."><span class="qs-icon g4"><svg class="ic" aria-hidden="true"><use href="#i-xray"/></svg></span><h3>Diagnostic Imaging</h3><p>MRI, CT scan, ultrasound &amp; digital X-ray.</p></button>
+      <button class="qs-card reveal" data-toast="Demo pharmacy — prescription refills would be handled here."><span class="qs-icon g5"><svg class="ic" aria-hidden="true"><use href="#i-pill"/></svg></span><h3>Pharmacy</h3><p>24/7 pharmacy with online refill requests.</p></button>
+      <a class="qs-card reveal" href="#packages"><span class="qs-icon g6"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span><h3>Health Packages</h3><p>Preventive full-body checkups at demo prices.</p></a>
+      <button class="qs-card reveal" data-toast="Ambulance request received (demo only — no real dispatch was made)."><span class="qs-icon g7"><svg class="ic" aria-hidden="true"><use href="#i-amb"/></svg></span><h3>Ambulance</h3><p>GPS-tracked critical care transport, 24/7.</p></button>
+      <button class="qs-card reveal" id="qsPortal"><span class="qs-icon g8"><svg class="ic" aria-hidden="true"><use href="#i-portal"/></svg></span><h3>Patient Portal</h3><p>Reports, prescriptions, bills &amp; records in one place.</p></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DOCTOR FINDER ===== -->
+<section id="doctors" aria-label="Find a doctor">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Doctor Finder</span>
+      <h2>Meet Our <span class="grad-text">Specialists</span></h2>
+      <p>Search and filter our fictional care team by name, specialization, department or availability.</p>
+    </div>
+    <div class="filter-bar reveal" role="search">
+      <div class="field"><label for="fName">Doctor name</label><input id="fName" type="search" placeholder="e.g. Dr. Elena Voss" autocomplete="off"></div>
+      <div class="field"><label for="fSpec">Specialization</label><select id="fSpec"><option value="">All specializations</option></select></div>
+      <div class="field"><label for="fDept">Department</label><select id="fDept"><option value="">All departments</option></select></div>
+      <div class="field"><label for="fAvail">Availability</label><select id="fAvail"><option value="">Any day</option><option>Mon</option><option>Tue</option><option>Wed</option><option>Thu</option><option>Fri</option><option>Sat</option></select></div>
+      <button class="btn btn-outline" id="fReset"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>Reset</button>
+    </div>
+    <div class="docs-grid" id="docsGrid" aria-live="polite"></div>
+  </div>
+</section>
+<!-- ===== DEPARTMENTS ===== -->
+<section id="departments" aria-label="Departments">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Centers of Excellence</span>
+      <h2>Our Departments</h2>
+      <p>Ten fictional specialty departments, each with its own team, diagnostics and care protocols.</p>
+    </div>
+    <div class="dept-grid" id="deptGrid"></div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services" aria-label="Services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Full-Spectrum Care</span>
+      <h2>Hospital Services</h2>
+      <p>From emergency response to rehabilitation — every service in the patient journey, covered.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-item reveal"><span class="svc-icon g7"><svg class="ic" aria-hidden="true"><use href="#i-amb"/></svg></span><div><h3>Emergency Care</h3><p>24/7 trauma and critical care with 15-minute average response (demo figure).</p></div></div>
+      <div class="svc-item reveal"><span class="svc-icon g2"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg></span><div><h3>Outpatient Care (OPD)</h3><p>Same-day consultations across 40+ fictional specialties with smart queues.</p></div></div>
+      <div class="svc-item reveal"><span class="svc-icon g1"><svg class="ic" aria-hidden="true"><use href="#i-bed"/></svg></span><div><h3>Inpatient Care</h3><p>Comfortable private and semi-private rooms with continuous monitoring.</p></div></div>
+      <div class="svc-item reveal"><span class="svc-icon g6"><svg class="ic" aria-hidden="true"><use href="#i-cut"/></svg></span><div><h3>Surgery</h3><p>Modular operation theaters for elective and emergency procedures.</p></div></div>
+      <div class="svc-item reveal"><span class="svc-icon g4"><svg class="ic" aria-hidden="true"><use href="#i-xray"/></svg></span><div><h3>Diagnostics &amp; Imaging</h3><p>MRI, CT, ultrasound and digital X-ray with same-day reports (demo).</p></div></div>
+      <div class="svc-item reveal"><span class="svc-icon g3"><svg class="ic" aria-hidden="true"><use href="#i-flask"/></svg></span><div><h3>Laboratory</h3><p>CAP-style automated lab processing hundreds of fictional samples daily.</p></div></div>
+      <div class="svc-item reveal"><span class="svc-icon g5"><svg class="ic" aria-hidden="true"><use href="#i-pill"/></svg></span><div><h3>Pharmacy</h3><p>Round-the-clock pharmacy with digital prescriptions and refills.</p></div></div>
+      <div class="svc-item reveal"><span class="svc-icon g8"><svg class="ic" aria-hidden="true"><use href="#i-video"/></svg></span><div><h3>Teleconsultation</h3><p>Secure video visits with fictional e-prescriptions and follow-ups.</p></div></div>
+      <div class="svc-item reveal"><span class="svc-icon g2"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span><div><h3>Preventive Health Checkups</h3><p>Curated screening packages for every age and lifestyle.</p></div></div>
+      <div class="svc-item reveal"><span class="svc-icon g1"><svg class="ic" aria-hidden="true"><use href="#i-wheel"/></svg></span><div><h3>Rehabilitation</h3><p>Physiotherapy, cardiac rehab and post-surgical recovery programs.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FACILITIES ===== -->
+<section id="facilities" aria-label="Facilities">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Built for Healing</span>
+      <h2>World-Class Facilities</h2>
+      <p>A fictional campus designed around patient comfort, safety and speed of care.</p>
+    </div>
+    <div class="fac-grid">
+      <div class="fac-card reveal"><div class="fac-art" style="background:linear-gradient(135deg,#0ea5a4,#0284c7)"><span class="demo-tag">Demo Visual</span><svg class="ic" aria-hidden="true"><use href="#i-bed"/></svg></div><div class="fac-body"><h3>Modern Patient Rooms</h3><p>Private suites with smart beds, guest space and room service.</p></div></div>
+      <div class="fac-card reveal"><div class="fac-art" style="background:linear-gradient(135deg,#f43f5e,#b91c1c)"><span class="demo-tag">Demo Visual</span><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></div><div class="fac-body"><h3>Intensive Care Unit</h3><p>12-bed ICU with central monitoring and isolation rooms (demo).</p></div></div>
+      <div class="fac-card reveal"><div class="fac-art" style="background:linear-gradient(135deg,#8b5cf6,#4c1d95)"><span class="demo-tag">Demo Visual</span><svg class="ic" aria-hidden="true"><use href="#i-cut"/></svg></div><div class="fac-body"><h3>Operation Theaters</h3><p>Four modular OTs with laminar airflow and 4K surgical imaging.</p></div></div>
+      <div class="fac-card reveal"><div class="fac-art" style="background:linear-gradient(135deg,#0ea5e9,#075985)"><span class="demo-tag">Demo Visual</span><svg class="ic" aria-hidden="true"><use href="#i-xray"/></svg></div><div class="fac-body"><h3>Diagnostic Center</h3><p>One floor for MRI, CT, ultrasound and mammography.</p></div></div>
+      <div class="fac-card reveal"><div class="fac-art" style="background:linear-gradient(135deg,#10b981,#065f46)"><span class="demo-tag">Demo Visual</span><svg class="ic" aria-hidden="true"><use href="#i-pill"/></svg></div><div class="fac-body"><h3>Pharmacy</h3><p>24/7 retail and discharge pharmacy with home delivery (demo).</p></div></div>
+      <div class="fac-card reveal"><div class="fac-art" style="background:linear-gradient(135deg,#f59e0b,#b45309)"><span class="demo-tag">Demo Visual</span><svg class="ic" aria-hidden="true"><use href="#i-cafe"/></svg></div><div class="fac-body"><h3>Cafeteria</h3><p>Dietitian-approved meals, coffee bar and family dining lounge.</p></div></div>
+      <div class="fac-card reveal"><div class="fac-art" style="background:linear-gradient(135deg,#14b8a6,#155e75)"><span class="demo-tag">Demo Visual</span><svg class="ic" aria-hidden="true"><use href="#i-sofa"/></svg></div><div class="fac-body"><h3>Waiting Lounges</h3><p>Quiet, Wi-Fi enabled waiting areas with children's corner.</p></div></div>
+      <div class="fac-card reveal"><div class="fac-art" style="background:linear-gradient(135deg,#64748b,#1e293b)"><span class="demo-tag">Demo Visual</span><svg class="ic" aria-hidden="true"><use href="#i-park"/></svg></div><div class="fac-body"><h3>Parking</h3><p>300+ basement slots with EV charging and valet (demo).</p></div></div>
+      <div class="fac-card reveal"><div class="fac-art" style="background:linear-gradient(135deg,#ec4899,#9d174d)"><span class="demo-tag">Demo Visual</span><svg class="ic" aria-hidden="true"><use href="#i-amb"/></svg></div><div class="fac-body"><h3>Ambulance Service</h3><p>GPS-tracked fleet with ACLS-trained crews, ready 24/7 (demo).</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HEALTH PACKAGES ===== -->
+<section id="packages" aria-label="Health packages">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Preventive Care</span>
+      <h2>Health Checkup Packages</h2>
+      <p>Fictional demo pricing for five curated preventive screening bundles.</p>
+    </div>
+    <div class="pkg-grid" id="pkgGrid"></div>
+    <p class="demo-note">All prices, tests and inclusions on this page are fictional demonstration data.</p>
+  </div>
+</section>
+
+<!-- ===== PATIENT PORTAL PREVIEW ===== -->
+<section id="portal" aria-label="Patient portal preview">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Digital Health, Simplified</span>
+      <h2>Demo Patient Portal</h2>
+      <p>A preview of the fictional NovaCare patient dashboard — every record shown here is invented.</p>
+    </div>
+    <div class="portal-shell reveal">
+      <div class="portal-top">
+        <span class="dot" style="background:#f87171"></span><span class="dot" style="background:#fbbf24"></span><span class="dot" style="background:#34d399"></span>
+        <span>portal.novacare-demo.example</span>
+        <span class="demo-pill">Demo Patient Portal — No Real Data</span>
+      </div>
+      <div class="portal-grid">
+        <nav class="portal-side" aria-label="Demo portal navigation">
+          <a class="pnav on" href="#portal"><svg class="ic" aria-hidden="true"><use href="#i-portal"/></svg>Overview</a>
+          <a class="pnav" href="#portal" data-ptoast="Appointments"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg>Appointments</a>
+          <a class="pnav" href="#portal" data-ptoast="Lab Reports"><svg class="ic" aria-hidden="true"><use href="#i-flask"/></svg>Lab Reports</a>
+          <a class="pnav" href="#portal" data-ptoast="Prescriptions"><svg class="ic" aria-hidden="true"><use href="#i-pill"/></svg>Prescriptions</a>
+          <a class="pnav" href="#portal" data-ptoast="Medical Records"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Records</a>
+          <a class="pnav" href="#portal" data-ptoast="Bills &amp; Payments"><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg>Bills</a>
+        </nav>
+        <div class="portal-main">
+          <div class="mini">
+            <div class="mini-head"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg><span>Upcoming Appointment</span></div>
+            <h4>Dr. Aarav Mehta — Cardiology</h4>
+            <p>Fri, 18 Sep · 10:30 AM · OPD Block A, Room 204 (fictional)</p>
+            <button class="btn btn-outline btn-sm" style="margin-top:11px" data-ptoast="Video Visit"><svg class="ic" aria-hidden="true"><use href="#i-video"/></svg>Join Video Visit</button>
+          </div>
+          <div class="mini">
+            <div class="mini-head"><svg class="ic" aria-hidden="true"><use href="#i-flask"/></svg><span>Lab Reports</span></div>
+            <h4>3 reports ready</h4>
+            <p>CBC · Lipid Profile · HbA1c — uploaded by demo lab</p>
+            <button class="btn btn-outline btn-sm" style="margin-top:11px" data-ptoast="Report NC-LD-88214"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>View Reports</button>
+          </div>
+          <div class="mini">
+            <div class="mini-head"><svg class="ic" aria-hidden="true"><use href="#i-pill"/></svg><span>Prescriptions</span></div>
+            <h4>2 active prescriptions</h4>
+            <p>Last issued by Dr. Sofia Reyes (demo) — refills available</p>
+            <button class="btn btn-outline btn-sm" style="margin-top:11px" data-ptoast="Refill Request"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>Request Refill</button>
+          </div>
+          <div class="mini">
+            <div class="mini-head"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg><span>Medical Records</span></div>
+            <h4>128 documents</h4>
+            <p>Discharge summaries, imaging &amp; immunization history (demo)</p>
+            <button class="btn btn-outline btn-sm" style="margin-top:11px" data-ptoast="Records Export"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>Open Records</button>
+          </div>
+          <div class="mini">
+            <div class="mini-head"><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg><span>Bills</span></div>
+            <h4>$120.00 due (demo)</h4>
+            <p>Invoice #NC-INV-3341 · Cardiology consult, 04 Sep</p>
+            <button class="btn btn-outline btn-sm" style="margin-top:11px" data-ptoast="Invoice NC-INV-3341"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Pay Demo Bill</button>
+          </div>
+          <div class="mini">
+            <div class="mini-head"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg><span>Health Summary</span></div>
+            <div class="ring-wrap">
+              <svg class="ring" width="72" height="72" viewBox="0 0 72 72" aria-hidden="true">
+                <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0ea5a4"/><stop offset="1" stop-color="#0284c7"/></linearGradient></defs>
+                <circle class="ring-bg" cx="36" cy="36" r="29" fill="none" stroke-width="7"/>
+                <circle class="ring-fg" cx="36" cy="36" r="29" fill="none" stroke-width="7" stroke-dasharray="182.2" stroke-dashoffset="31"/>
+              </svg>
+              <div><div class="ring-txt">83%</div><p style="font-size:.72rem">Demo wellness score</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LAB & REPORTS ===== -->
+<section id="lab" aria-label="Lab and reports">
+  <div class="container lab-wrap">
+    <div class="reveal">
+      <span class="eyebrow">Lab &amp; Reports</span>
+      <h2 style="margin:14px 0 12px">Your Reports,<br><span class="grad-text">Zero Waiting Rooms</span></h2>
+      <p style="color:var(--muted);margin-bottom:8px">In this demo, patients can preview how laboratory results, diagnostic images, prescriptions and medical documents would appear the moment they are verified.</p>
+      <ul class="lab-points">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Verified lab reports pushed instantly to the portal</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Diagnostic imaging with radiologist notes (demo)</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>e-Prescriptions from teleconsult &amp; OPD visits</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Downloadable PDFs with secure demo access codes</li>
+      </ul>
+    </div>
+    <div class="report-card reveal">
+      <div class="report-head"><svg class="ic" aria-hidden="true"><use href="#i-flask"/></svg><strong>Demo Report Center</strong><span>Fictional Data</span></div>
+      <div style="overflow-x:auto">
+      <table class="rpt">
+        <thead><tr><th>Report</th><th>Category</th><th>Date</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>Complete Blood Count (CBC)</td><td>Laboratory</td><td>12 Sep 2026</td><td><span class="chip ok">Verified</span></td><td><button class="link-btn" data-ptoast="Report NC-LD-88214">View<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></td></tr>
+          <tr><td>Lipid Profile</td><td>Laboratory</td><td>12 Sep 2026</td><td><span class="chip ok">Verified</span></td><td><button class="link-btn" data-ptoast="Report NC-LD-88215">View<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></td></tr>
+          <tr><td>Chest X-Ray (Digital)</td><td>Imaging</td><td>02 Sep 2026</td><td><span class="chip ok">Verified</span></td><td><button class="link-btn" data-ptoast="Image NC-IM-4471">View<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></td></tr>
+          <tr><td>MRI Brain — Contrast</td><td>Imaging</td><td>28 Aug 2026</td><td><span class="chip warn">In Review</span></td><td><button class="link-btn" data-ptoast="Report NC-IM-4420">View<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></td></tr>
+          <tr><td>HbA1c (Glycated Hb)</td><td>Laboratory</td><td>15 Jul 2026</td><td><span class="chip ok">Verified</span></td><td><button class="link-btn" data-ptoast="Report NC-LD-87902">View<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></td></tr>
+          <tr><td>E-Prescription #NC-RX-1187</td><td>Prescription</td><td>04 Sep 2026</td><td><span class="chip info">Active</span></td><td><button class="link-btn" data-ptoast="Rx NC-RX-1187">View<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TELECONSULTATION ===== -->
+<section id="tele" aria-label="Teleconsultation">
+  <div class="container tele-grid">
+    <div class="video-mock reveal" role="img" aria-label="Demo video consultation interface">
+      <div class="vm-chip"><span class="rec" aria-hidden="true"></span>Secure Consultation · Demo</div>
+      <div class="vm-avatar">DR</div>
+      <div class="vm-name">Dr. David Kim<small>ENT Specialist · Online now (fictional)</small></div>
+      <div class="vm-controls">
+        <button class="vm-btn" aria-label="Toggle microphone" data-ptoast="Microphone"><svg class="ic" aria-hidden="true"><use href="#i-mic"/></svg></button>
+        <button class="vm-btn" aria-label="Toggle camera" data-ptoast="Camera"><svg class="ic" aria-hidden="true"><use href="#i-video"/></svg></button>
+        <button class="vm-btn end" aria-label="End call" data-ptoast="Call Ended"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg></button>
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Telemedicine</span>
+      <h2 style="margin:14px 0 12px">Care From <span class="grad-text">Anywhere</span></h2>
+      <p style="color:var(--muted)">Consult fictional NovaCare doctors by secure video — no travel, no queues. Designed with end-to-end encrypted sessions and instant e-prescriptions.</p>
+      <ul class="tele-points">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-video"/></svg>HD video consultation with screen-share for reports</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg>Book online appointments with real-time slot availability</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Private, encrypted consultation room UI (demo)</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Digital prescriptions delivered to your portal instantly</li>
+      </ul>
+      <button class="btn btn-primary" data-open-appointment><svg class="ic" aria-hidden="true"><use href="#i-video"/></svg>Schedule Consultation</button>
+      <span style="font-size:.72rem;color:var(--muted);display:block;margin-top:10px">Demo scheduling — no real consultation will be created.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HEALTH ASSISTANT ===== -->
+<section id="assistant" aria-label="AI health assistant demo">
+  <div class="container" style="position:relative">
+    <div class="section-head reveal">
+      <span class="eyebrow"><svg class="ic" style="width:14px;height:14px" aria-hidden="true"><use href="#i-spark"/></svg>AI-Powered Navigation</span>
+      <h2>NovaCare Health Assistant</h2>
+      <p>A demo information assistant that helps you find departments, doctors, services and answers to common hospital questions.</p>
+    </div>
+    <div class="assistant-shell reveal">
+      <div class="asst-head">
+        <span class="asst-av"><svg class="ic" style="width:22px;height:22px" aria-hidden="true"><use href="#i-spark"/></svg></span>
+        <div><strong>Nova Assistant</strong><small>Demo information assistant</small></div>
+        <span class="asst-online"><span class="pulse-dot" aria-hidden="true"></span>Online</span>
+      </div>
+      <div class="chat-area" id="chatArea" aria-live="polite">
+        <div class="msg msg-bot">Hi! I'm the NovaCare demo assistant. I can help you find departments, doctors, services and visiting hours — all with fictional demo data. What would you like to explore?</div>
+      </div>
+      <div class="asst-chips">
+        <button data-q="Find departments">Find departments</button>
+        <button data-q="Find doctors">Find doctors</button>
+        <button data-q="Visiting hours">Visiting hours</button>
+        <button data-q="Health packages">Health packages</button>
+        <button data-q="Emergency help">Emergency</button>
+      </div>
+      <form class="asst-input" id="asstForm">
+        <label for="asstInput" style="position:absolute;left:-999px">Ask the demo assistant</label>
+        <input id="asstInput" type="text" placeholder="Ask about departments, doctors, services..." autocomplete="off">
+        <button class="btn btn-primary btn-sm" type="submit" aria-label="Send message" style="padding:12px 16px"><svg class="ic" aria-hidden="true"><use href="#i-send"/></svg></button>
+      </form>
+      <div class="asst-disclaimer"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg><span><strong>Demo only:</strong> this assistant provides fictional hospital information. It does not provide medical diagnosis, treatment advice or emergency medical guidance. In a real emergency, call your local emergency number.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section id="testimonials" aria-label="Patient testimonials">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Patient Stories</span>
+      <h2>What Patients Say</h2>
+      <p>Fictional demo testimonials written to illustrate how this section would look with real feedback.</p>
+    </div>
+    <div class="tmn-grid">
+      <div class="tmn-card reveal">
+        <div class="stars" aria-label="5 out of 5 stars"><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg></div>
+        <p>"Booking my cardiology follow-up took less than a minute, and the video consult felt just like being in the clinic. The portal reports are so easy to share with my family."</p>
+        <div class="tmn-who"><span class="tmn-av" style="background:linear-gradient(135deg,#0ea5a4,#0d9488)">RD</span><div><strong>Rachel Donovan</strong><span>Demo Patient · Cardiology</span></div></div>
+      </div>
+      <div class="tmn-card reveal">
+        <div class="stars" aria-label="5 out of 5 stars"><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg></div>
+        <p>"The pediatric team made my daughter actually look forward to her visits. The facility feels less like a hospital and more like a place designed around families."</p>
+        <div class="tmn-who"><span class="tmn-av" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">MA</span><div><strong>Marcus Alvarez</strong><span>Demo Patient · Pediatrics</span></div></div>
+      </div>
+      <div class="tmn-card reveal">
+        <div class="stars" aria-label="5 out of 5 stars"><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg></div>
+        <p>"From the emergency entrance to discharge, every step was clearly explained. The digital summaries and billing transparency were genuinely impressive."</p>
+        <div class="tmn-who"><span class="tmn-av" style="background:linear-gradient(135deg,#0284c7,#0369a1)">JT</span><div><strong>James Turner</strong><span>Demo Patient · Emergency Care</span></div></div>
+      </div>
+    </div>
+    <p class="demo-note">Names, quotes and ratings above are invented demo content.</p>
+  </div>
+</section>
+
+<!-- ===== ACCREDITATIONS & TRUST ===== -->
+<section id="trust" aria-label="Accreditations and trust">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Quality &amp; Trust</span>
+      <h2>Standards We Would Hold</h2>
+      <p>Placeholder accreditation badges for layout demonstration — no real certifications are claimed.</p>
+    </div>
+    <div class="trust-badges reveal">
+      <div class="trust-badge"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><div>DEMO CERTIFIED QUALITY<small>Placeholder badge</small></div></div>
+      <div class="trust-badge"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg><div>PATIENT SAFETY EXCELLENCE<small>Illustrative only</small></div></div>
+      <div class="trust-badge"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><div>GLOBAL CARE STANDARDS<small>Demo placeholder</small></div></div>
+      <div class="trust-badge"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg><div>DIGITAL HEALTH READY<small>Demo placeholder</small></div></div>
+    </div>
+    <div class="trust-stats reveal">
+      <div class="tstat"><b><span data-count="25">0</span>+</b><span>Years of Care (demo)</span></div>
+      <div class="tstat"><b><span data-count="120">0</span>+</b><span>Doctors on Platform (demo)</span></div>
+      <div class="tstat"><b><span data-count="200">0</span>K+</b><span>Patient Visits (demo)</span></div>
+      <div class="tstat"><b><span data-count="40">0</span>+</b><span>Specialties (demo)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HEALTH ARTICLES ===== -->
+<section id="articles" aria-label="Health articles">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Health Library</span>
+      <h2>Articles &amp; Wellness Guides</h2>
+      <p>Fictional demo articles showing how a hospital content hub could look.</p>
+    </div>
+    <div class="art-grid">
+      <article class="art-card reveal"><div class="art-art" style="background:linear-gradient(135deg,#f43f5e,#b91c1c)"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></div><div class="art-body"><span class="art-cat">Heart Health</span><h3>5 Everyday Habits Your Heart Will Thank You For</h3><p>Small, science-backed routines that keep your cardiovascular system strong (demo content).</p><div class="art-meta">Sep 2026 · 5 min read (fictional)</div><button class="link-btn" data-ptoast="Article: Heart Health">Read More<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></div></article>
+      <article class="art-card reveal"><div class="art-art" style="background:linear-gradient(135deg,#10b981,#047857)"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></div><div class="art-body"><span class="art-cat">Healthy Lifestyle</span><h3>The Demo Guide to Building a Sustainable Routine</h3><p>Sleep, movement and screen-time balance — a fictional starter framework.</p><div class="art-meta">Sep 2026 · 6 min read (fictional)</div><button class="link-btn" data-ptoast="Article: Healthy Lifestyle">Read More<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></div></article>
+      <article class="art-card reveal"><div class="art-art" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)"><svg class="ic" aria-hidden="true"><use href="#i-baby"/></svg></div><div class="art-body"><span class="art-cat">Children's Wellness</span><h3>Vaccines, Veggies &amp; Vitality: A Parent's Demo Handbook</h3><p>Illustrative milestones and habits for growing kids — purely demonstration content.</p><div class="art-meta">Aug 2026 · 7 min read (fictional)</div><button class="link-btn" data-ptoast="Article: Children's Wellness">Read More<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></div></article>
+      <article class="art-card reveal"><div class="art-art" style="background:linear-gradient(135deg,#0284c7,#075985)"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg></div><div class="art-body"><span class="art-cat">Preventive Healthcare</span><h3>Why Annual Screenings Matter More After 40 (Demo)</h3><p>A fictional look at which checkups to schedule and when.</p><div class="art-meta">Aug 2026 · 4 min read (fictional)</div><button class="link-btn" data-ptoast="Article: Preventive Healthcare">Read More<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></div></article>
+      <article class="art-card reveal"><div class="art-art" style="background:linear-gradient(135deg,#f59e0b,#b45309)"><svg class="ic" aria-hidden="true"><use href="#i-cafe"/></svg></div><div class="art-body"><span class="art-cat">Nutrition</span><h3>Reading Food Labels Like a Dietitian (Fictional Guide)</h3><p>Demo tips on sugar, sodium and serving sizes for smarter grocery runs.</p><div class="art-meta">Jul 2026 · 5 min read (fictional)</div><button class="link-btn" data-ptoast="Article: Nutrition">Read More<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></div></article>
+      <article class="art-card reveal"><div class="art-art" style="background:linear-gradient(135deg,#14b8a6,#0f766e)"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></div><div class="art-body"><span class="art-cat">Mental Wellbeing</span><h3>Five-Minute Reset: A Demo Guide to Daily Calm</h3><p>Breathing, boundaries and break-time — an illustrative wellbeing starter.</p><div class="art-meta">Jul 2026 · 4 min read (fictional)</div><button class="link-btn" data-ptoast="Article: Mental Wellbeing">Read More<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOCATION ===== -->
+<section id="location" aria-label="Location">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Visit Us</span>
+      <h2>Find NovaCare</h2>
+      <p>A fictional address and map layout for demonstration purposes.</p>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-card reveal">
+        <div class="loc-row"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><div><strong>Demo Address</strong><span>100 Healthcare Avenue, Demo City, DC 10001 (fictional)</span></div></div>
+        <div class="loc-row"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><div><strong>OPD Hours (Demo)</strong><span>Mon–Sat · 8:00 AM – 8:00 PM · Emergency 24/7</span></div></div>
+        <div class="loc-row"><svg class="ic" aria-hidden="true"><use href="#i-park"/></svg><div><strong>Parking</strong><span>300+ basement slots, EV charging, accessible bays &amp; valet (demo)</span></div></div>
+        <div class="loc-row"><svg class="ic" aria-hidden="true"><use href="#i-amb"/></svg><div><strong>Transportation</strong><span>Shuttle from Demo Central Station every 20 min · Bus routes 5, 12, 21 (fictional)</span></div></div>
+        <div class="loc-row"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg><div><strong>Accessibility</strong><span>Step-free entrances, wheelchairs on loan and hearing loops at reception (demo)</span></div></div>
+      </div>
+      <div class="map-ph reveal" role="img" aria-label="Fictional map placeholder showing NovaCare location">
+        <svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="600" height="420" fill="#dcebee"/>
+          <path d="M-20 120 H620" stroke="#ffffff" stroke-width="26"/>
+          <path d="M-20 300 H620" stroke="#ffffff" stroke-width="20"/>
+          <path d="M140 -20 V440" stroke="#ffffff" stroke-width="22"/>
+          <path d="M390 -20 V440" stroke="#ffffff" stroke-width="28"/>
+          <path d="M520 -20 V440" stroke="#ffffff" stroke-width="16"/>
+          <path d="M-20 210 H620" stroke="#ffffff" stroke-width="12"/>
+          <path d="M260 -20 V440" stroke="#ffffff" stroke-width="12"/>
+          <rect x="430" y="140" width="60" height="40" rx="6" fill="#c3dde3"/>
+          <rect x="170" y="230" width="55" height="45" rx="6" fill="#c3dde3"/>
+          <rect x="300" y="60" width="55" height="40" rx="6" fill="#c3dde3"/>
+          <rect x="60" y="320" width="60" height="45" rx="6" fill="#c3dde3"/>
+          <rect x="440" y="320" width="50" height="45" rx="6" fill="#c3dde3"/>
+          <rect x="296" y="132" width="118" height="96" rx="10" fill="#b7d9e2"/>
+          <circle cx="355" cy="105" r="34" fill="rgba(13,148,136,.18)"/>
+        </svg>
+        <div class="map-pin">
+          <svg width="46" height="58" viewBox="0 0 46 58" aria-hidden="true"><path d="M23 2C12 2 4 10 4 21c0 14 19 35 19 35s19-21 19-35C42 10 34 2 23 2z" fill="#0d9488" stroke="#fff" stroke-width="3"/><circle cx="23" cy="20" r="8" fill="#fff"/><path d="M23 16v8M19 20h8" stroke="#0d9488" stroke-width="2.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="map-chip"><svg class="ic" style="width:14px;height:14px" aria-hidden="true"><use href="#i-pin"/></svg>Map placeholder — fictional location</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" aria-label="Contact">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Get in Touch</span>
+      <h2>Contact NovaCare <span class="grad-text">(Demo)</span></h2>
+      <p>All contact details below are fictional and exist only for this UI demonstration.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="c-card reveal">
+          <div class="c-row"><span class="c-ic g2"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg></span><div><strong>Phone (Fictional)</strong><span>+1 (555) 010-2048 · Mon–Sat, 8 AM – 8 PM</span></div></div>
+          <div class="c-row"><span class="c-ic g1"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><div><strong>Email (Fictional)</strong><span>hello@novacare-demo.example</span></div></div>
+          <div class="c-row"><span class="c-ic g5"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg></span><div><strong>WhatsApp-Style Chat (Demo)</strong><span>+1 (555) 010-7743 · automated demo replies only</span></div></div>
+          <div class="c-row"><span class="c-ic g4"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg></span><div><strong>Address (Fictional)</strong><span>100 Healthcare Avenue, Demo City, DC 10001</span></div></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+            <a class="btn btn-primary btn-sm" href="tel:+15550102048"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Call</a>
+            <a class="btn btn-outline btn-sm" href="mailto:hello@novacare-demo.example"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>Email</a>
+            <button class="btn btn-outline btn-sm" data-toast="WhatsApp-style demo chat opened — no real WhatsApp account is connected."><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp Demo</button>
+          </div>
+        </div>
+        <div class="c-card reveal" style="background:var(--teal-l);border-color:#b9e4de">
+          <div class="c-row" style="padding:0"><span class="c-ic g7"><svg class="ic" aria-hidden="true"><use href="#i-amb"/></svg></span><div><strong>Emergency Hotline (Fictional)</strong><span>+1 (555) 010-2048 · Available 24/7 for demo purposes</span></div></div>
+        </div>
+      </div>
+      <div class="form-card reveal">
+        <div class="demo-hint"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg><span>This form is a UI demonstration. Submissions are not stored or sent anywhere — no real message will be delivered.</span></div>
+        <form id="contactForm" novalidate>
+          <div class="form-grid">
+            <div class="field"><label for="cName">Full name</label><input id="cName" type="text" placeholder="Jordan Ellis" required></div>
+            <div class="field"><label for="cMail">Email</label><input id="cMail" type="email" placeholder="you@example.com" required></div>
+            <div class="field"><label for="cPhone">Phone</label><input id="cPhone" type="tel" placeholder="+1 (555) 000-0000"></div>
+            <div class="field"><label for="cTopic">Topic</label><select id="cTopic"><option>General enquiry (demo)</option><option>Appointment help (demo)</option><option>Feedback (demo)</option><option>Partnerships (demo)</option></select></div>
+            <div class="field full"><label for="cMsg">Message</label><textarea id="cMsg" rows="5" placeholder="How can we help? (demo form)" required></textarea></div>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit" style="margin-top:18px"><svg class="ic" aria-hidden="true"><use href="#i-send"/></svg>Send Demo Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq" aria-label="Frequently asked questions">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Good to Know</span>
+      <h2>Frequently Asked Questions</h2>
+      <p>Fictional answers demonstrating the FAQ experience.</p>
+    </div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer" id="about">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#home"><span class="logo-mark"><svg class="ic" aria-hidden="true"><use href="#i-logo"/></svg></span><span class="logo-text">NovaCare<small style="color:#7ba3b5">MEDICAL CENTER</small></span></a>
+        <p>A fictional advanced hospital platform demo — showcasing modern web design for appointments, telehealth, patient portals and preventive care. Every detail on this page is invented.</p>
+        <div class="socials">
+          <span class="soc" role="button" tabindex="0" aria-label="Fictional X profile" data-toast="Social links are fictional placeholders."><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg></span>
+          <span class="soc" role="button" tabindex="0" aria-label="Fictional community profile" data-toast="Social links are fictional placeholders."><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg></span>
+          <span class="soc" role="button" tabindex="0" aria-label="Fictional video profile" data-toast="Social links are fictional placeholders."><svg class="ic" aria-hidden="true"><use href="#i-video"/></svg></span>
+          <span class="soc" role="button" tabindex="0" aria-label="Fictional mail profile" data-toast="Social links are fictional placeholders."><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="foot-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#doctors">Find a Doctor</a></li>
+          <li><a href="#packages">Health Packages</a></li>
+          <li><a href="#portal">Patient Portal (Demo)</a></li>
+          <li><a href="#articles">Health Library</a></li>
+          <li><a href="#faq">FAQs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Departments</h4>
+        <ul class="foot-links">
+          <li><a href="#departments">Cardiology</a></li>
+          <li><a href="#departments">Neurology</a></li>
+          <li><a href="#departments">Pediatrics</a></li>
+          <li><a href="#departments">Orthopedics</a></li>
+          <li><a href="#departments">Oncology</a></li>
+          <li><a href="#departments">View All</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact (Fictional)</h4>
+        <ul class="foot-links">
+          <li><a href="tel:+15550102048">+1 (555) 010-2048</a></li>
+          <li><a href="mailto:hello@novacare-demo.example">hello@novacare-demo.example</a></li>
+          <li><a href="#location">100 Healthcare Avenue, Demo City</a></li>
+        </ul>
+        <div class="foot-em">
+          <strong><svg class="ic" style="width:15px;height:15px" aria-hidden="true"><use href="#i-amb"/></svg>Emergency 24/7 (Demo)</strong>
+          <a href="tel:+15550102048">+1 (555) 010-2048</a>
+          <small>Fictional emergency line for UI demonstration only.</small>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> NovaCare Medical Center — UI/UX portfolio demo. All content is fictional.</span>
+      <nav aria-label="Legal">
+        <a data-toast="Privacy Policy — demo document placeholder.">Privacy Policy</a>
+        <a data-toast="Terms of Use — demo document placeholder.">Terms</a>
+        <a data-toast="Accessibility Statement — demo document placeholder.">Accessibility</a>
+        <a data-toast="Cookies — demo document placeholder.">Cookies</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== MODALS / OVERLAYS / UTILITIES ===== -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+  <div class="modal-card" id="modalCard"></div>
+</div>
+
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Site search">
+  <div class="search-inner">
+    <button class="icon-btn" id="searchClose" aria-label="Close search" style="position:absolute;top:-56px;right:0"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    <div class="search-bar">
+      <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+      <input id="searchInput" type="search" placeholder="Search doctors, departments, services, packages, FAQs..." autocomplete="off" aria-label="Search">
+    </div>
+    <p class="search-hint">Try "cardiology", "Dr. Voss", "teleconsultation", "parking" or "health package"</p>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+<button class="to-top" id="toTop" aria-label="Back to top"><svg class="ic" style="transform:rotate(-90deg)" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+<button class="btn btn-primary sticky-book" data-open-appointment><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg>Book Appointment</button>
+
+<script>
+
+/* ============ FICTIONAL DEMO DATA ============ */
+const GRADS = ["linear-gradient(135deg,#0ea5a4,#0d9488)","linear-gradient(135deg,#0ea5e9,#0369a1)","linear-gradient(135deg,#8b5cf6,#6d28d9)","linear-gradient(135deg,#f59e0b,#d97706)","linear-gradient(135deg,#ec4899,#db2777)","linear-gradient(135deg,#10b981,#059669)"];
+
+const DEPARTMENTS = [
+ {id:"cardiology",name:"Cardiology",icon:"i-heart",g:"g7",desc:"Heart health, angiography, echo and cardiac rehab programs."},
+ {id:"neurology",name:"Neurology",icon:"i-brain",g:"g2",desc:"Brain, spine & nerve care — stroke, epilepsy and migraine clinics."},
+ {id:"orthopedics",name:"Orthopedics",icon:"i-bone",g:"g4",desc:"Bones, joints & sports injuries, from fracture care to replacement."},
+ {id:"pediatrics",name:"Pediatrics",icon:"i-baby",g:"g3",desc:"Complete child healthcare — newborn care to adolescent medicine."},
+ {id:"dermatology",name:"Dermatology",icon:"i-skin",g:"g6",desc:"Skin, hair & nail care with clinical cosmetology support."},
+ {id:"general",name:"General Medicine",icon:"i-stetho",g:"g1",desc:"Everyday illness, chronic disease & whole-family primary care."},
+ {id:"oncology",name:"Oncology",icon:"i-ribbon",g:"g5",desc:"Cancer screening, chemotherapy & supportive oncology care."},
+ {id:"gynecology",name:"Gynecology",icon:"i-venus",g:"g8",desc:"Women's health — maternity, wellness and minimally invasive surgery."},
+ {id:"ent",name:"ENT",icon:"i-ear",g:"g2",desc:"Ear, nose & throat care — audiology, sinus and voice clinics."},
+ {id:"ophthalmology",name:"Ophthalmology",icon:"i-eye",g:"g4",desc:"Complete eye care — vision testing to micro-incision surgery."}
+];
+
+const DOCTORS = [
+ {id:1,name:"Dr. Aarav Mehta",spec:"Cardiologist",dept:"Cardiology",exp:12,timing:"Mon · Wed · Fri — 9:00 AM to 1:00 PM",avail:["Mon","Wed","Fri"],g:0,bio:"Fictional profile — interventional cardiologist specializing in preventive heart health and post-angioplasty rehabilitation."},
+ {id:2,name:"Dr. Elena Voss",spec:"Neurologist",dept:"Neurology",exp:15,timing:"Tue · Thu — 10:00 AM to 2:00 PM",avail:["Tue","Thu"],g:2,bio:"Fictional profile — neurologist focused on stroke care, epilepsy management and headache disorders."},
+ {id:3,name:"Dr. Marcus Chen",spec:"Orthopedic Surgeon",dept:"Orthopedics",exp:10,timing:"Mon · Thu · Sat — 9:30 AM to 12:30 PM",avail:["Mon","Thu","Sat"],g:1,bio:"Fictional profile — joint replacement and sports-injury surgeon with a robotic-assisted surgery focus."},
+ {id:4,name:"Dr. Sofia Reyes",spec:"Pediatrician",dept:"Pediatrics",exp:8,timing:"Mon · Wed · Fri — 4:00 PM to 7:00 PM",avail:["Mon","Wed","Fri"],g:4,bio:"Fictional profile — pediatrician with a gentle, family-first approach, from newborn care to teen health."},
+ {id:5,name:"Dr. Priya Nair",spec:"Dermatologist",dept:"Dermatology",exp:9,timing:"Tue · Wed · Sat — 11:00 AM to 3:00 PM",avail:["Tue","Wed","Sat"],g:5,bio:"Fictional profile — dermatologist combining clinical skin care with evidence-based cosmetology."},
+ {id:6,name:"Dr. James Whitfield",spec:"Oncologist",dept:"Oncology",exp:18,timing:"Mon · Fri — 2:00 PM to 6:00 PM",avail:["Mon","Fri"],g:3,bio:"Fictional profile — medical oncologist leading the demo center's chemotherapy and survivorship programs."},
+ {id:7,name:"Dr. Amara Okafor",spec:"Gynecologist",dept:"Gynecology",exp:11,timing:"Tue · Thu · Sat — 9:00 AM to 1:00 PM",avail:["Tue","Thu","Sat"],g:2,bio:"Fictional profile — gynecologist specializing in maternity care and minimally invasive surgery."},
+ {id:8,name:"Dr. David Kim",spec:"ENT Specialist",dept:"ENT",exp:7,timing:"Wed · Fri — 3:00 PM to 7:00 PM",avail:["Wed","Fri"],g:1,bio:"Fictional profile — ENT surgeon with a focus on sinus disorders, audiology and pediatric ENT."},
+ {id:9,name:"Dr. Lena Fischer",spec:"General Physician",dept:"General Medicine",exp:6,timing:"Mon · Tue · Thu — 8:30 AM to 12:00 PM",avail:["Mon","Tue","Thu"],g:0,bio:"Fictional profile — primary care physician managing diabetes, hypertension and everyday illness."},
+ {id:10,name:"Dr. Omar Haddad",spec:"Ophthalmologist",dept:"Ophthalmology",exp:14,timing:"Mon · Wed · Sat — 10:00 AM to 2:00 PM",avail:["Mon","Wed","Sat"],g:5,bio:"Fictional profile — eye surgeon performing micro-incision cataract surgery and LASIK evaluations."}
+];
+
+const PACKAGES = [
+ {id:"basic",name:"Basic Health Check",price:49,g:"g1",icon:"i-shield",desc:"Essential yearly screening for adults under 40.",feats:["CBC & urine routine","Blood sugar & BMI","Blood pressure & vision","Doctor consultation (demo)"]},
+ {id:"wellness",name:"Complete Wellness",price:129,g:"g2",icon:"i-heart",popular:true,desc:"Full-body evaluation with organ health markers.",feats:["40+ lab parameters","ECG & chest X-ray","Ultrasound abdomen","Diet & lifestyle consult (demo)"]},
+ {id:"senior",name:"Senior Wellness",price:159,g:"g3",icon:"i-users",desc:"Age-focused screening for 60+ adults.",feats:["Bone density & arthritis panel","Cardiac risk markers","Memory & cognition screen","Physiotherapy review (demo)"]},
+ {id:"women",name:"Women's Health",price:119,g:"g6",icon:"i-venus",desc:"Gynecology-led screening and wellness.",feats:["Pap smear & HPV (demo)","Thyroid & anemia panel","Breast health evaluation","Gynecologist consult (demo)"]},
+ {id:"cardiac",name:"Cardiac Screening",price:189,g:"g7",icon:"i-heart",desc:"Deep-dive heart health with imaging.",feats:["Treadmill test (TMT, demo)","2D echo & doppler","Lipid & sugar profile","Cardiologist consult (demo)"]}
+];
+
+const FAQS = [
+ {q:"What are the visiting hours? (Demo)",a:"Fictional answer — general wards allow visitors 4:00–7:00 PM daily, while the ICU has flexible 30-minute slots per patient. Timings are illustrative demo content."},
+ {q:"How do I cancel or reschedule an appointment?",a:"Fictional answer — appointments can be rescheduled free of charge up to 2 hours before the slot via the demo patient portal or the fictional helpline."},
+ {q:"Do you support insurance? (Demo)",a:"Fictional answer — this demo shows how a cashless insurance panel with 30+ fictional providers would be displayed. No real insurance is processed here."},
+ {q:"How do I access my lab reports online?",a:"Fictional answer — verified reports appear in the demo patient portal under Lab Reports, with PDF downloads and shareable secure links."},
+ {q:"Is parking available at the hospital?",a:"Fictional answer — the demo campus offers 300+ basement parking slots, EV charging, accessible bays and a valet service."},
+ {q:"How does teleconsultation work?",a:"Fictional answer — book a video slot, join from the portal at your time, and receive an e-prescription instantly. All shown flows are UI demonstrations only."}
+];
+
+/* ============ UTILITIES ============ */
+const $ = (s,c=document)=>c.querySelector(s);
+const $$ = (s,c=document)=>[...c.querySelectorAll(s)];
+const initials = n => n.replace("Dr. ","").split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase();
+const deptName = id => (DEPARTMENTS.find(d=>d.id===id)||{}).name || id;
+
+function toast(msg,type=""){
+  const t=document.createElement("div");
+  t.className="toast "+type;
+  t.innerHTML='<svg class="ic" aria-hidden="true"><use href="#i-'+(type==="warn"?"info":type==="info"?"info":"check")+'"/></svg><span>'+msg+'</span>';
+  $("#toastStack").appendChild(t);
+  setTimeout(()=>{t.classList.add("out");setTimeout(()=>t.remove(),320)},3600);
+}
+document.addEventListener("click",e=>{
+  const tb=e.target.closest("[data-toast]");
+  if(tb){e.preventDefault();toast(tb.dataset.toast,"info");}
+  const pb=e.target.closest("[data-ptoast]");
+  if(pb){e.preventDefault();toast("Demo preview: "+pb.dataset.ptoast+" — fictional data only.","info");}
+});
+
+/* ============ HEADER / NAV ============ */
+const header=$("#siteHeader"),toTop=$("#toTop");
+addEventListener("scroll",()=>{
+  header.classList.toggle("scrolled",scrollY>10);
+  toTop.classList.toggle("show",scrollY>600);
+},{passive:true});
+toTop.addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
+
+const panel=$("#mobilePanel"),scrim=$("#scrim");
+const setPanel=o=>{panel.classList.toggle("open",o);scrim.classList.toggle("show",o);document.body.style.overflow=o?"hidden":""};
+$("#hamburger").addEventListener("click",()=>setPanel(true));
+$("#closePanel").addEventListener("click",()=>setPanel(false));
+scrim.addEventListener("click",()=>setPanel(false));
+$$(".mobile-panel a").forEach(a=>a.addEventListener("click",()=>setPanel(false)));
+$$(".main-nav a").forEach(a=>{
+  a.addEventListener("click",()=>{$$(".main-nav a").forEach(x=>x.classList.remove("active"));a.classList.add("active");});
+});
+
+/* ============ REVEAL & COUNTERS ============ */
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target);}}),{threshold:.12});
+$$(".reveal").forEach(el=>io.observe(el));
+
+const cio=new IntersectionObserver(es=>es.forEach(en=>{
+  if(!en.isIntersecting)return;cio.unobserve(en.target);
+  const el=en.target,end=+el.dataset.count,t0=performance.now();
+  (function tick(t){const p=Math.min((t-t0)/1300,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick)})(t0);
+}),{threshold:.5});
+$$("[data-count]").forEach(el=>cio.observe(el));
+
+/* ============ MODAL FRAMEWORK ============ */
+const overlay=$("#modalOverlay"),modalCard=$("#modalCard");
+function openModal(html,wide){
+  modalCard.classList.toggle("wide",!!wide);
+  modalCard.innerHTML='<button class="modal-x" aria-label="Close dialog"><svg class="ic"><use href="#i-x"/></svg></button>'+html;
+  overlay.classList.add("open");
+  document.body.style.overflow="hidden";
+  modalCard.querySelector(".modal-x").addEventListener("click",closeModal);
+}
+function closeModal(){overlay.classList.remove("open");document.body.style.overflow="";modalCard.innerHTML="";}
+overlay.addEventListener("click",e=>{if(e.target===overlay)closeModal();});
+addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeSearch();setPanel(false);}});
+
+/* ============ DOCTOR FINDER ============ */
+const docsGrid=$("#docsGrid");
+function renderDoctors(){
+  const q=$("#fName").value.trim().toLowerCase(),sp=$("#fSpec").value,dp=$("#fDept").value,av=$("#fAvail").value;
+  const list=DOCTORS.filter(d=>
+    (!q||d.name.toLowerCase().includes(q)) &&
+    (!sp||d.spec===sp) &&
+    (!dp||d.dept===dp) &&
+    (!av||d.avail.includes(av)));
+  if(!list.length){
+    docsGrid.innerHTML='<div class="doc-empty"><svg class="ic"><use href="#i-search"/></svg><h3 style="color:var(--ink);margin-bottom:6px">No doctors found</h3><p>No fictional doctors match your filters. Try widening your search.</p></div>';
+    return;
+  }
+  docsGrid.innerHTML=list.map(d=>`
+   <article class="doc-card">
+     <div class="doc-top">
+       <span class="avatar" style="background:${GRADS[d.g]}" aria-hidden="true">${initials(d.name)}</span>
+       <div><div class="doc-name">${d.name}</div><div class="doc-spec">${d.spec}</div><div class="doc-exp">${d.exp} yrs experience · Demo profile</div></div>
+     </div>
+     <div class="doc-meta"><span class="chip">${d.dept}</span>${d.avail.map(a=>'<span class="chip" style="background:#f0f7ff;color:#0369a1">'+a+'</span>').join("")}</div>
+     <div class="doc-times"><svg class="ic"><use href="#i-clock"/></svg>${d.timing}</div>
+     <div class="doc-actions">
+       <button class="btn btn-outline btn-sm" onclick="openDoctor(${d.id})"><svg class="ic"><use href="#i-user"/></svg>View Profile</button>
+       <button class="btn btn-primary btn-sm" onclick="openAppointment(${d.id})"><svg class="ic"><use href="#i-cal"/></svg>Book Appointment</button>
+     </div>
+   </article>`).join("");
+}
+["fName","fSpec","fDept","fAvail"].forEach(id=>$("#"+id).addEventListener("input",renderDoctors));
+$("#fReset").addEventListener("click",()=>{$("#fName").value="";$("#fSpec").value="";$("#fDept").value="";$("#fAvail").value="";renderDoctors();toast("Filters reset.","info");});
+
+/* populate filter selects */
+[...new Set(DOCTORS.map(d=>d.spec))].sort().forEach(s=>$("#fSpec").insertAdjacentHTML("beforeend",`<option>${s}</option>`));
+[...new Set(DOCTORS.map(d=>d.dept))].sort().forEach(s=>$("#fDept").insertAdjacentHTML("beforeend",`<option>${s}</option>`));
+
+window.openDoctor=function(id){
+  const d=DOCTORS.find(x=>x.id===id);
+  openModal(`
+   <div class="prof-top">
+     <span class="prof-av" style="background:${GRADS[d.g]}" aria-hidden="true">${initials(d.name)}</span>
+     <div><h3>${d.name}</h3><div class="doc-spec">${d.spec} · ${d.dept}</div></div>
+   </div>
+   <div class="prof-facts">
+     <div class="prof-fact"><span>Experience</span><b>${d.exp} years (demo)</b></div>
+     <div class="prof-fact"><span>Department</span><b>${d.dept}</b></div>
+     <div class="prof-fact"><span>Consult Fee</span><b>$${30+d.exp*2} (demo)</b></div>
+     <div class="prof-fact"><span>Rating</span><b>4.${7+(d.id%3)} ★ fictional</b></div>
+   </div>
+   <div class="prof-bio">${d.bio}</div>
+   <div class="doc-times" style="margin-bottom:18px"><svg class="ic"><use href="#i-clock"/></svg>${d.timing}</div>
+   <button class="btn btn-primary btn-block" onclick="openAppointment(${d.id})"><svg class="ic"><use href="#i-cal"/></svg>Book Appointment with ${d.name}</button>
+   <p style="font-size:.7rem;color:var(--muted);text-align:center;margin-top:10px">Fictional doctor profile — part of the UI/UX demo.</p>`);
+};
+
+/* ============ DEPARTMENTS ============ */
+$("#deptGrid").innerHTML=DEPARTMENTS.map(d=>`
+  <article class="dept-card reveal">
+    <span class="dept-icon ${d.g}"><svg class="ic" aria-hidden="true"><use href="#${d.icon}"/></svg></span>
+    <h3>${d.name}</h3><p>${d.desc}</p>
+    <button class="link-btn" onclick="openDept('${d.id}')">View Department<svg class="ic"><use href="#i-arrow"/></svg></button>
+  </article>`).join("");
+$$("#deptGrid .reveal").forEach(el=>io.observe(el));
+
+window.openDept=function(id){
+  const d=DEPARTMENTS.find(x=>x.id===id);
+  const docs=DOCTORS.filter(x=>x.dept===d.name);
+  openModal(`
+   <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+     <span class="dept-icon ${d.g}"><svg class="ic"><use href="#${d.icon}"/></svg></span>
+     <div><h3>${d.name}</h3><div class="doc-spec">Center of Excellence (demo)</div></div>
+   </div>
+   <div class="prof-bio">${d.desc} This is a fictional department showcase for the UI/UX demonstration.</div>
+   <div class="prof-facts">
+     <div class="prof-fact"><span>Demo Doctors</span><b>${docs.length||"—"} specialists</b></div>
+     <div class="prof-fact"><span>OPD Hours (Demo)</span><b>Mon–Sat · 8 AM – 8 PM</b></div>
+   </div>
+   ${docs.length?'<p style="font-size:.8rem;color:var(--muted);margin-bottom:6px">Doctors in this department:</p>'+docs.map(x=>`<div class="c-row" style="padding:7px 0"><span class="avatar" style="width:38px;height:38px;border-radius:11px;font-size:.75rem;background:${GRADS[x.g]}">${initials(x.name)}</span><div><strong style="font-size:.84rem">${x.name}</strong><span style="font-size:.73rem">${x.spec} · ${x.exp} yrs (demo)</span></div></div>`).join(""):""}
+   <button class="btn btn-primary btn-block" style="margin-top:16px" onclick="openAppointment(null,'${d.name}')"><svg class="ic"><use href="#i-cal"/></svg>Book in ${d.name}</button>`);
+};
+
+/* ============ PACKAGES ============ */
+$("#pkgGrid").innerHTML=PACKAGES.map(p=>`
+  <article class="pkg-card reveal ${p.popular?"popular":""}">
+    ${p.popular?'<span class="pop-ribbon">Most Popular (Demo)</span>':""}
+    <span class="pkg-icon ${p.g}"><svg class="ic"><use href="#${p.icon}"/></svg></span>
+    <h3>${p.name}</h3><p class="pkg-desc">${p.desc}</p>
+    <div class="pkg-price">$${p.price}<span> / person (demo)</span></div>
+    <ul class="pkg-feats">${p.feats.map(f=>'<li><svg class="ic"><use href="#i-check"/></svg>'+f+"</li>").join("")}</ul>
+    <button class="btn ${p.popular?"btn-primary":"btn-outline"} btn-block" onclick="openPackage('${p.id}')">View Package</button>
+  </article>`).join("");
+$$("#pkgGrid .reveal").forEach(el=>io.observe(el));
+
+window.openPackage=function(id){
+  const p=PACKAGES.find(x=>x.id===id);
+  openModal(`
+   <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+     <span class="pkg-icon ${p.g}"><svg class="ic"><use href="#${p.icon}"/></svg></span>
+     <div><h3>${p.name}</h3><div class="doc-spec">Preventive Health Package</div></div>
+   </div>
+   <div class="pkg-price" style="margin-bottom:4px">$${p.price}<span> / person — fictional demo price</span></div>
+   <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px">Approx. 3–4 hour experience with breakfast and a printed summary (demo copy).</p>
+   <ul class="pkg-feats" style="margin-bottom:18px">${p.feats.map(f=>'<li><svg class="ic"><use href="#i-check"/></svg>'+f+"</li>").join("")}</ul>
+   <div class="demo-strip"><svg class="ic"><use href="#i-info"/></svg>Demo package — no real booking, payment or medical service is provided.</div>
+   <button class="btn btn-primary btn-block" data-pkg-book><svg class="ic"><use href="#i-cal"/></svg>Book This Package (Demo)</button>`);
+  $("[data-pkg-book]").addEventListener("click",()=>{closeModal();toast("Demo package request noted — this is a UI demonstration only.","info");});
+};
+
+/* ============ FAQ ============ */
+$("#faqList").innerHTML=FAQS.map((f,i)=>`
+  <div class="faq-item reveal" id="faq-${i}">
+    <button class="faq-q" aria-expanded="false">${f.q}<svg class="ic"><use href="#i-chev"/></svg></button>
+    <div class="faq-a">${f.a}</div>
+  </div>`).join("");
+$$("#faqList .faq-q").forEach(q=>q.addEventListener("click",()=>{
+  const item=q.parentElement,open=item.classList.contains("open");
+  $$("#faqList .faq-item").forEach(x=>{x.classList.remove("open");x.querySelector(".faq-q").setAttribute("aria-expanded","false")});
+  if(!open){item.classList.add("open");q.setAttribute("aria-expanded","true");}
+}));
+$$("#faqList .reveal").forEach(el=>io.observe(el));
+
+/* ============ APPOINTMENT WIZARD ============ */
+const SLOTS=["09:00","09:30","10:00","10:30","11:00","11:30","12:00","02:00","02:30","03:00","03:30","04:00","04:30","05:00"];
+const fmt=t=>{let[h,m]=t.split(":").map(Number);const ap=h>=12?"PM":"AM";h=h%12||12;return `${h}:${String(m).padStart(2,"0")} ${ap}`};
+const DAYS=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+let WZ={};
+const stepNames=["Department","Doctor","Date","Time","Details","Done"];
+
+window.openAppointment=function(docId,deptNamePre){
+  WZ={step:1,dept:deptNamePre||"",doctor:docId||null,date:null,time:null};
+  openModal(wizShell(),true);
+  renderStep();
+};
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-open-appointment]");
+  if(b){e.preventDefault();setPanel(false);openAppointment();}
+});
+
+function wizShell(){
+  return `<h3>Book an Appointment</h3>
+  <p class="modal-sub">UI/UX demo flow: Department → Doctor → Date → Time → Details → Confirmation. Nothing is really booked.</p>
+  <div class="steps" id="wizSteps">${stepNames.map((s,i)=>`<div class="step" data-s="${i+1}"><span class="lbl">${s}</span></div>`).join("")}</div>
+  <div id="wizBody"></div>
+  <div class="wiz-err" id="wizErr" role="alert"></div>
+  <div class="wiz-nav" id="wizNav"></div>`;
+}
+
+function renderStep(){
+  $$("#wizSteps .step").forEach((el,i)=>{
+    el.classList.toggle("done",WZ.step>i+1);
+    el.classList.toggle("now",WZ.step===i+1);
+  });
+  const body=$("#wizBody"),nav=$("#wizNav"),err=$("#wizErr");err.textContent="";
+  if(WZ.step===1){
+    body.innerHTML=`<p style="font-size:.82rem;font-weight:700;color:var(--muted);margin-bottom:12px">1 · Choose a department</p>
+    <div class="opt-grid two">${DEPARTMENTS.map(d=>`<div class="opt-chip ${WZ.dept===d.name?"sel":""}" onclick="wzSet('dept','${d.name}')">${d.name}</div>`).join("")}</div>`;
+  }
+  if(WZ.step===2){
+    const list=DOCTORS.filter(d=>d.dept===WZ.dept);
+    body.innerHTML=`<p style="font-size:.82rem;font-weight:700;color:var(--muted);margin-bottom:12px">2 · Choose a doctor in ${WZ.dept}</p>
+    <div class="opt-grid two">${list.map(d=>`<div class="opt-chip ${WZ.doctor===d.id?"sel":""}" onclick="wzSet('doctor',${d.id})">${d.name}<small>${d.spec} · ${d.exp} yrs</small></div>`).join("")||"<p>No demo doctors in this department.</p>"}</div>`;
+  }
+  if(WZ.step===3){
+    const days=[];const base=new Date();
+    for(let i=1;i<=14;i++){const dt=new Date(base);dt.setDate(base.getDate()+i);if(dt.getDay()!==0)days.push(dt);}
+    body.innerHTML=`<p style="font-size:.82rem;font-weight:700;color:var(--muted);margin-bottom:12px">3 · Pick a date (Sundays closed in this demo)</p>
+    <div class="opt-grid">${days.slice(0,12).map(dt=>{const key=dt.toISOString().slice(0,10);const lbl=DAYS[dt.getDay()]+", "+dt.getDate()+" "+dt.toLocaleString("en",{month:"short"});
+      return `<div class="opt-chip ${WZ.date===key?"sel":""}" onclick="wzSet('date','${key}','${lbl}')">${lbl}<small>${dt.getFullYear()}</small></div>`}).join("")}</div>`;
+  }
+  if(WZ.step===4){
+    const dd=new Date(WZ.date+"T12:00:00").getDay();const doc=DOCTORS.find(d=>d.id===WZ.doctor);
+    body.innerHTML=`<p style="font-size:.82rem;font-weight:700;color:var(--muted);margin-bottom:12px">4 · Available slots on ${WZ.dateLbl} (demo availability)</p>
+    <div class="opt-grid">${SLOTS.map((t,i)=>{const off=doc&&!doc.avail.includes(DAYS[dd])?true:(i+doc.id+dd)%5===0;
+      return `<div class="opt-chip ${off?"off":""} ${WZ.time===t?"sel":""}" ${off?"":`onclick="wzSet('time','${t}')"`}>${fmt(t)}</div>`}).join("")}</div>
+    ${doc&&!doc.avail.includes(DAYS[dd])?'<p style="font-size:.74rem;color:var(--amber);font-weight:700;margin-top:10px">Note: this doctor does not usually consult on '+DAYS[dd]+'s (demo rule).</p>':""}`;
+  }
+  if(WZ.step===5){
+    body.innerHTML=`<p style="font-size:.82rem;font-weight:700;color:var(--muted);margin-bottom:12px">5 · Patient details (use fictional info)</p>
+    <div class="form-grid">
+      <div class="field"><label for="wName">Full name</label><input id="wName" type="text" placeholder="Jordan Ellis" value="${WZ.name||""}"></div>
+      <div class="field"><label for="wPhone">Phone</label><input id="wPhone" type="tel" placeholder="+1 (555) 000-0000" value="${WZ.phone||""}"></div>
+      <div class="field"><label for="wMail">Email</label><input id="wMail" type="email" placeholder="you@example.com" value="${WZ.mail||""}"></div>
+      <div class="field"><label for="wAge">Age</label><input id="wAge" type="number" min="0" max="120" placeholder="34" value="${WZ.age||""}"></div>
+      <div class="field full"><label for="wReason">Reason for visit</label><textarea id="wReason" rows="3" placeholder="Brief description (demo)">${WZ.reason||""}</textarea></div>
+    </div>
+    <div class="demo-strip" style="margin-top:14px"><svg class="ic"><use href="#i-info"/></svg>Do not enter real personal or medical information — this is a UI demonstration.</div>`;
+  }
+  if(WZ.step===6){
+    const d=DOCTORS.find(x=>x.id===WZ.doctor);
+    const bid="NC-DM-"+Math.random().toString(36).slice(2,8).toUpperCase();
+    body.innerHTML=`<div class="confirm-box">
+      <div class="confirm-ic"><svg class="ic"><use href="#i-check"/></svg></div>
+      <h4>Appointment Confirmed (Demo)</h4>
+      <p>This booking ID is randomly generated and no real appointment exists.</p>
+      <div class="csum">
+        <div><span>Booking ID</span><b>${bid}</b></div>
+        <div><span>Department</span><b>${WZ.dept}</b></div>
+        <div><span>Doctor</span><b>${d?d.name:"—"}</b></div>
+        <div><span>Date</span><b>${WZ.dateLbl}</b></div>
+        <div><span>Time</span><b>${fmt(WZ.time)}</b></div>
+        <div><span>Patient</span><b>${WZ.name} (demo)</b></div>
+      </div>
+      <div class="demo-strip"><svg class="ic"><use href="#i-info"/></svg>UI/UX demonstration only — no real appointment was created and no data was stored.</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="closeModal()"><svg class="ic"><use href="#i-check"/></svg>Done</button>
+        <button class="btn btn-outline" onclick="toast('Demo summary exported — fictional document only.','info')"><svg class="ic"><use href="#i-doc"/></svg>Download Summary</button>
+      </div>
+    </div>`;
+  }
+  nav.innerHTML = WZ.step<6
+    ? `${WZ.step>1?'<button class="btn btn-outline" onclick="wzGo(-1)"><svg class="ic" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg>Back</button>':"<span></span>"}
+       <button class="btn btn-primary" onclick="wzGo(1)">${WZ.step===5?"Confirm Appointment":"Continue"}<svg class="ic"><use href="#i-arrow"/></svg></button>`
+    : "";
+}
+window.wzSet=function(k,v,lbl){
+  WZ[k]=v;if(lbl)WZ.dateLbl=lbl;
+  if(k==="dept"){WZ.doctor=null;}
+  if(k==="date"){WZ.time=null;}
+  renderStep();
+};
+window.wzGo=function(dir){
+  const err=$("#wizErr");
+  if(dir>0){
+    if(WZ.step===1&&!WZ.dept)return err.textContent="Please choose a department to continue.";
+    if(WZ.step===2&&!WZ.doctor)return err.textContent="Please choose a doctor to continue.";
+    if(WZ.step===3&&!WZ.date)return err.textContent="Please pick a date to continue.";
+    if(WZ.step===4&&!WZ.time)return err.textContent="Please select a time slot to continue.";
+    if(WZ.step===5){
+      WZ.name=$("#wName").value.trim();WZ.phone=$("#wPhone").value.trim();WZ.mail=$("#wMail").value.trim();
+      WZ.age=$("#wAge").value;WZ.reason=$("#wReason").value.trim();
+      if(!WZ.name)return err.textContent="Please enter a (fictional) patient name.";
+      if(!WZ.phone)return err.textContent="Please enter a (fictional) contact number.";
+      toast("Demo appointment confirmed — nothing was really booked.","info");
+    }
+  }
+  WZ.step=Math.min(6,Math.max(1,WZ.step+dir));
+  renderStep();
+  modalCard.scrollTop=0;
+};
+
+/* ============ SEARCH ============ */
+const searchOverlay=$("#searchOverlay"),searchInput=$("#searchInput"),searchResults=$("#searchResults");
+function buildIndex(){
+  const ix=[];
+  DOCTORS.forEach(d=>ix.push({t:"Doctor",title:d.name,sub:d.spec+" · "+d.dept,icon:"i-users",g:GRADS[d.g],go:()=>openDoctor(d.id),kw:(d.name+" "+d.spec+" "+d.dept).toLowerCase()}));
+  DEPARTMENTS.forEach(d=>ix.push({t:"Department",title:d.name,sub:d.desc,icon:d.icon,g:"var(--grad)",go:()=>openDept(d.id),kw:(d.name+" department").toLowerCase()}));
+  ["Emergency Care","Outpatient Care (OPD)","Inpatient Care","Surgery","Diagnostics & Imaging","Laboratory","Pharmacy","Teleconsultation","Preventive Health Checkups","Rehabilitation"].forEach(s=>ix.push({t:"Service",title:s,sub:"Hospital service overview",icon:"i-shield",g:"var(--grad)",go:()=>{closeSearch();location.hash="#services";toast("Service overview: "+s+" (demo).","info")},kw:s.toLowerCase()}));
+  ["Modern Patient Rooms","Intensive Care Unit","Operation Theaters","Diagnostic Center","Pharmacy","Cafeteria","Waiting Lounges","Parking","Ambulance Service"].forEach(s=>ix.push({t:"Facility",title:s,sub:"Campus facility showcase",icon:"i-bed",g:"var(--grad)",go:()=>{closeSearch();location.hash="#facilities"},kw:s.toLowerCase()}));
+  PACKAGES.forEach(p=>ix.push({t:"Package",title:p.name,sub:"$"+p.price+" · preventive health (demo)",icon:p.icon,g:"var(--grad)",go:()=>openPackage(p.id),kw:(p.name+" health package checkup").toLowerCase()}));
+  FAQS.forEach((f,i)=>ix.push({t:"FAQ",title:f.q,sub:f.a.slice(0,70)+"…",icon:"i-chat",g:"var(--grad)",go:()=>{closeSearch();location.hash="#faq";setTimeout(()=>{const it=$("#faq-"+i);if(it){it.classList.add("open");it.scrollIntoView({behavior:"smooth",block:"center"})}},350)},kw:f.q.toLowerCase()}));
+  return ix;
+}
+const SEARCH_INDEX=buildIndex();
+function openSearch(){searchOverlay.classList.add("open");document.body.style.overflow="hidden";setTimeout(()=>searchInput.focus(),120);renderSearch("");}
+function closeSearch(){searchOverlay.classList.remove("open");document.body.style.overflow="";searchInput.value="";}
+$("#searchBtn").addEventListener("click",openSearch);
+$("#mSearchBtn").addEventListener("click",()=>{setPanel(false);openSearch();});
+$("#searchClose").addEventListener("click",closeSearch);
+searchInput.addEventListener("input",()=>renderSearch(searchInput.value));
+function renderSearch(q){
+  q=q.trim().toLowerCase();
+  if(!q){searchResults.innerHTML="";return;}
+  const hits=SEARCH_INDEX.filter(x=>x.kw.includes(q)).slice(0,14);
+  if(!hits.length){
+    searchResults.innerHTML=`<div class="sr-none">
+      <svg class="ic"><use href="#i-search"/></svg>
+      <h4>No results found</h4>
+      <p>Nothing in this fictional demo matches "${q.replace(/</g,"&lt;")}".<br>Try "cardiology", "Dr. Voss", "teleconsultation" or "health package".</p></div>`;
+    return;
+  }
+  const groups={};hits.forEach(h=>{(groups[h.t]=groups[h.t]||[]).push(h)});
+  searchResults.innerHTML=Object.entries(groups).map(([g,items])=>`
+   <div class="sr-group"><h4>${g}s</h4>${items.map((h,i)=>`
+     <button class="sr-item" data-hit="${hits.indexOf(h)}">
+       <span class="sr-ic" style="background:${h.g}"><svg class="ic"><use href="#${h.icon}"/></svg></span>
+       <span><strong>${h.title}</strong><span>${h.sub}</span></span>
+       <span class="sr-type">${g}</span>
+     </button>`).join("")}</div>`).join("");
+  $$(".sr-item").forEach(el=>el.addEventListener("click",()=>{hits[+el.dataset.hit].go();}));
+}
+
+/* ============ ASSISTANT ============ */
+const chatArea=$("#chatArea"),asstForm=$("#asstForm"),asstInput=$("#asstInput");
+function addMsg(txt,who){const m=document.createElement("div");m.className="msg msg-"+who;m.innerHTML=txt;chatArea.appendChild(m);chatArea.scrollTop=chatArea.scrollHeight;return m;}
+function botReply(q){
+  q=q.toLowerCase();
+  const has=(...w)=>w.some(x=>q.includes(x));
+  if(has("department","specialty","specialit"))return "We have 10 fictional departments: "+DEPARTMENTS.map(d=>d.name).join(", ")+". Scroll to the Departments section or tap any card to view details.";
+  if(has("doctor","dr ","physician","cardiologist","neurolog","pediatric")){const names=DOCTORS.slice(0,4).map(d=>d.name+" ("+d.spec+")").join("; ");return "We have 10 fictional specialists — for example: "+names+". Use the Doctor Finder above to filter by name, specialty, department or day.";}
+  if(has("appointment","book","schedule","consult"))return "You can book a demo appointment using the flow in the Book Appointment window: Department → Doctor → Date → Time → Details → Confirmation. No real booking is created.";
+  if(has("hour","timing","open","visit","visiting"))return "Demo OPD hours are Mon–Sat, 8:00 AM – 8:00 PM. Emergency care is shown as 24/7 at the fictional hotline +1 (555) 010-2048.";
+  if(has("emergency","ambulance","urgent"))return "For this demo, emergency services are shown at +1 (555) 010-2048 with Call Emergency and Request Ambulance buttons in the red banner. Remember: I cannot provide real emergency help — in a real emergency, call your local emergency number.";
+  if(has("package","checkup","screening","health check"))return "There are 5 fictional preventive packages: Basic Health Check ($49), Complete Wellness ($129), Senior Wellness ($159), Women's Health ($119) and Cardiac Screening ($189). See the Health Packages section.";
+  if(has("report","lab","test result","prescription","record"))return "Lab reports, imaging, prescriptions and medical documents would appear in the Patient Portal preview below. Every record there is clearly fictional.";
+  if(has("park","location","address","direction","reach","map"))return "The fictional campus is at 100 Healthcare Avenue, Demo City — with 300+ demo parking slots, a shuttle from Demo Central Station and step-free access.";
+  if(has("tele","video"))return "Teleconsultation is demoed in the Telemedicine section: secure video visits with fictional e-prescriptions. Try the Schedule Consultation button.";
+  if(has("hi","hello","hey"))return "Hello! Ask me about departments, doctors, appointments, packages, visiting hours or parking — all with fictional demo data.";
+  if(has("price","cost","fee"))return "Demo consult fees range from $30–$70 depending on the fictional doctor, and health packages run $49–$189. All prices are invented for this demonstration.";
+  if(has("insurance","cashless"))return "The demo shows a cashless insurance panel placeholder with 30+ fictional providers. No real insurance processing exists here.";
+  return "I can help you navigate this fictional hospital: try asking about <b>departments</b>, <b>doctors</b>, <b>appointments</b>, <b>packages</b>, <b>visiting hours</b> or <b>parking</b>. I share demo information only — not medical advice.";
+}
+function ask(q){
+  if(!q.trim())return;
+  addMsg(q.replace(/</g,"&lt;"),"user");
+  asstInput.value="";
+  const typing=addMsg('<span class="msg-typing"><i></i><i></i><i></i></span>',"bot");
+  setTimeout(()=>{typing.innerHTML=botReply(q);chatArea.scrollTop=chatArea.scrollHeight;},700+Math.random()*500);
+}
+asstForm.addEventListener("submit",e=>{e.preventDefault();ask(asstInput.value);});
+$$(".asst-chips button").forEach(b=>b.addEventListener("click",()=>ask(b.dataset.q)));
+
+/* ============ MISC ============ */
+$("#qsPortal").addEventListener("click",()=>{location.hash="#portal";toast("Demo Patient Portal preview — all records are fictional.","info");});
+$("#contactForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const n=$("#cName").value.trim(),m=$("#cMail").value.trim(),msg=$("#cMsg").value.trim();
+  if(!n||!m||!msg){toast("Please fill in name, email and message (demo form).","warn");return;}
+  e.target.reset();
+  toast("Demo message composed — nothing was actually sent or stored.","info");
+});
+$("#year").textContent=new Date().getFullYear();
+
+renderDoctors();
+</script>
+</body>
+</html>
